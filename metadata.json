@@ -1,0 +1,6 @@
+{
+  "name": "Warp Flight 3D",
+  "description": "Hyper-minimal 3D space flight prototype toggling between hyperspeed warp and procedural solar systems.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

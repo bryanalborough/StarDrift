@@ -449,6 +449,36 @@
         to { transform: translateX(-50%) scale(1.02); box-shadow: 0 0 45px rgba(239, 68, 68, 0.9); }
       }
 
+      /* Planetary Gravity Well Dropping From Cruise Banner */
+      .gravity-well-banner {
+        position: fixed;
+        top: 75px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 60;
+        pointer-events: none;
+        background: rgba(8, 47, 73, 0.65);
+        border: 2px solid rgba(56, 189, 248, 0.95);
+        border-radius: 8px;
+        padding: 13px 30px;
+        color: #e0f2fe;
+        font-family: monospace;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(56, 189, 248, 0.75);
+        backdrop-filter: blur(12px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        animation: gravityPulse 0.55s infinite alternate;
+        text-shadow: 0 0 12px #38bdf8;
+      }
+      @keyframes gravityPulse {
+        from { transform: translateX(-50%) scale(0.98); box-shadow: 0 0 20px rgba(56, 189, 248, 0.45); }
+        to { transform: translateX(-50%) scale(1.02); box-shadow: 0 0 45px rgba(56, 189, 248, 0.9); }
+      }
+
       /* Explosion Full-Screen Overlay */
       .explosion-overlay {
         position: fixed;
@@ -485,6 +515,319 @@
         letter-spacing: 0.15em;
         text-transform: uppercase;
       }
+
+      /* Warp Core Thermal Gauge HUD (Hyperspace Mode) */
+      .warp-core-hud {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 50;
+        pointer-events: none;
+        background: rgba(9, 14, 26, 0.85);
+        border: 1px solid rgba(56, 189, 248, 0.4);
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-family: monospace;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+        width: 220px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease;
+        opacity: 1;
+      }
+      .warp-core-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        color: #94a3b8;
+      }
+      .core-temp-val {
+        color: #38bdf8;
+        font-weight: 800;
+        font-size: 12px;
+        letter-spacing: 0.05em;
+      }
+      .warp-core-track {
+        width: 100%;
+        height: 6px;
+        background: rgba(15, 23, 42, 0.85);
+        border-radius: 3px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .warp-core-bar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #38bdf8, #3b82f6);
+        box-shadow: 0 0 10px #38bdf8;
+        border-radius: 2px;
+        transition: width 0.1s linear, background 0.3s ease, box-shadow 0.3s ease;
+      }
+      .warp-core-sub {
+        font-size: 9px;
+        letter-spacing: 0.12em;
+        color: #64748b;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      /* Warning & Critical States for Core */
+      .warp-core-hud.warning {
+        border-color: rgba(245, 158, 11, 0.8);
+        box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+      }
+      .warp-core-hud.warning .core-temp-val {
+        color: #fbbf24;
+      }
+      .warp-core-hud.warning .warp-core-bar {
+        background: linear-gradient(90deg, #f59e0b, #ef4444);
+        box-shadow: 0 0 12px #f59e0b;
+      }
+      .warp-core-hud.warning .warp-core-sub {
+        color: #f59e0b;
+        font-weight: 700;
+      }
+
+      .warp-core-hud.critical {
+        border-color: rgba(239, 68, 68, 0.95);
+        box-shadow: 0 0 35px rgba(239, 68, 68, 0.8);
+        animation: corePulse 0.45s infinite alternate;
+      }
+      .warp-core-hud.critical .core-temp-val {
+        color: #f87171;
+      }
+      .warp-core-hud.critical .warp-core-bar {
+        background: #ef4444;
+        box-shadow: 0 0 16px #ef4444;
+      }
+      .warp-core-hud.critical .warp-core-sub {
+        color: #f87171;
+        font-weight: 800;
+      }
+
+      .warp-core-hud.cooling {
+        border-color: rgba(6, 182, 212, 0.95);
+        box-shadow: 0 0 28px rgba(6, 182, 212, 0.65);
+      }
+      .warp-core-hud.cooling .core-temp-val {
+        color: #67e8f9;
+      }
+      .warp-core-hud.cooling .warp-core-bar {
+        background: linear-gradient(90deg, #06b6d4, #22d3ee);
+        box-shadow: 0 0 14px #22d3ee;
+      }
+      .warp-core-hud.cooling .warp-core-sub {
+        color: #67e8f9;
+        font-weight: 700;
+      }
+
+      @keyframes corePulse {
+        from { transform: scale(1.0); box-shadow: 0 0 20px rgba(239, 68, 68, 0.5); }
+        to { transform: scale(1.03); box-shadow: 0 0 40px rgba(239, 68, 68, 0.95); }
+      }
+
+      /* Initial Mission Directive Guidance Banner */
+      .mission-guidance-banner {
+        position: fixed;
+        top: 85px;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+        z-index: 55;
+        background: rgba(9, 14, 28, 0.92);
+        border: 1px solid rgba(56, 189, 248, 0.6);
+        border-radius: 8px;
+        padding: 10px 22px;
+        text-align: center;
+        font-family: monospace;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
+        opacity: 0;
+        transition: opacity 0.8s ease, transform 0.5s ease;
+        max-width: 680px;
+      }
+      .mission-guidance-banner .banner-tag {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        color: #38bdf8;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .mission-guidance-banner .banner-text {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: #f8fafc;
+        text-transform: uppercase;
+        line-height: 1.4;
+      }
+
+      /* Crosshair Star Targeting Reticle & Long-Range Scanner Card */
+      .star-scan-reticle {
+        position: fixed;
+        width: 52px;
+        height: 52px;
+        margin-left: -26px;
+        margin-top: -26px;
+        pointer-events: none;
+        z-index: 45;
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+      .star-scan-reticle::before, .star-scan-reticle::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #38bdf8;
+      }
+      .star-scan-reticle::before {
+        top: 0; left: 0;
+        border-right: none; border-bottom: none;
+      }
+      .star-scan-reticle::after {
+        bottom: 0; right: 0;
+        border-left: none; border-top: none;
+      }
+      .star-scan-corner-tr {
+        position: absolute;
+        top: 0; right: 0; width: 12px; height: 12px;
+        border-top: 2px solid #38bdf8;
+        border-right: 2px solid #38bdf8;
+      }
+      .star-scan-corner-bl {
+        position: absolute;
+        bottom: 0; left: 0; width: 12px; height: 12px;
+        border-bottom: 2px solid #38bdf8;
+        border-left: 2px solid #38bdf8;
+      }
+
+      .star-scanner-card {
+        position: fixed;
+        pointer-events: none;
+        z-index: 46;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        padding: 0;
+        font-family: monospace;
+        font-size: 11px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        min-width: 180px;
+        line-height: 1.45;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+      }
+      .scan-header {
+        color: rgba(56, 189, 248, 0.55);
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        font-size: 10px;
+        margin-bottom: 2px;
+      }
+      .scan-line {
+        display: flex;
+        gap: 8px;
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        color: rgba(148, 163, 184, 0.5);
+      }
+      .scan-val {
+        color: rgba(241, 245, 249, 0.55);
+        font-weight: 600;
+      }
+      .scan-val.drop-highlight {
+        color: rgba(52, 211, 153, 0.65);
+      }
+
+      /* Coolant Tank Gauge HUD styles */
+      .coolant-section {
+        margin-top: 8px;
+        padding-top: 6px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .coolant-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: #94a3b8;
+        margin-bottom: 3px;
+      }
+      .coolant-key-hint {
+        color: #22d3ee;
+        font-weight: 800;
+      }
+      .coolant-val {
+        color: #38bdf8;
+        font-weight: 800;
+        font-size: 10px;
+      }
+      .coolant-track {
+        width: 100%;
+        height: 4px;
+        background: rgba(15, 23, 42, 0.85);
+        border-radius: 2px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .coolant-bar {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #06b6d4, #38bdf8);
+        box-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+        border-radius: 1px;
+        transition: width 0.15s ease;
+      }
+      .coolant-sub {
+        font-size: 8px;
+        letter-spacing: 0.1em;
+        color: #64748b;
+        margin-top: 3px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .coolant-section.empty .coolant-bar {
+        background: #ef4444;
+        box-shadow: none;
+      }
+      .coolant-section.empty .coolant-val {
+        color: #ef4444;
+      }
+      .coolant-section.empty .coolant-sub {
+        color: #f87171;
+      }
+      .coolant-section.scooping .coolant-bar {
+        background: linear-gradient(90deg, #38bdf8, #a855f7);
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+      }
+      .coolant-section.scooping .coolant-sub {
+        color: #38bdf8;
+        font-weight: 700;
+      }
+      .coolant-section.venting .coolant-bar {
+        background: linear-gradient(90deg, #67e8f9, #ffffff);
+        box-shadow: 0 0 14px rgba(103, 232, 249, 0.95);
+      }
+      .coolant-section.venting .coolant-val {
+        color: #67e8f9;
+      }
+      .coolant-section.venting .coolant-sub {
+        color: #67e8f9;
+        font-weight: 700;
+      }
     </style>
 
     <!-- Three.js CDN -->
@@ -510,6 +853,33 @@
     <div class="boundary-warning" id="boundaryWarning">APPROACHING SYSTEM BOUNDARY</div>
     <div class="star-lock-indicator" id="starLockIndicator">ENTERING STELLAR VICINITY</div>
 
+    <!-- Initial Mission Directive Guidance Banner -->
+    <div class="mission-guidance-banner" id="missionGuidanceBanner">
+      <div class="banner-tag">✦ FLIGHT COMPUTER ADVISORY ✦</div>
+      <div class="banner-text">FLY DIRECTLY TOWARD ANY STAR IN YOUR CROSSHAIRS TO DROP OUT OF WARP · EXOPLANETARY SYSTEMS AHEAD</div>
+    </div>
+
+    <!-- Crosshair Star Targeting Reticle & Long-Range Scanner -->
+    <div class="star-scan-reticle" id="starScanReticle">
+      <div class="star-scan-corner-tr"></div>
+      <div class="star-scan-corner-bl"></div>
+    </div>
+
+    <div class="star-scanner-card" id="starScannerCard">
+      <div class="scan-header">
+        <span id="scanHeaderTitle">⌖ STELLAR SCAN</span>
+        <span id="scanStarName">ALPHA CENTAURI</span>
+      </div>
+      <div class="scan-line">
+        <span id="scanTypeLabel">STAR TYPE:</span>
+        <span class="scan-val" id="scanStarClass">CLASS G (YELLOW DWARF)</span>
+      </div>
+      <div class="scan-line">
+        <span>PROXIMITY:</span>
+        <span class="scan-val drop-highlight" id="scanStarDist">342.0u (DROP: 5.2u)</span>
+      </div>
+    </div>
+
     <!-- Warp Drive Charge Progress Bar HUD -->
     <div class="warp-charge-container" id="warpChargeContainer">
       <div class="warp-charge-label" id="warpChargeLabel">WARP DRIVE CHARGING</div>
@@ -517,6 +887,29 @@
         <div class="warp-charge-bar" id="warpChargeBar"></div>
       </div>
       <div class="warp-charge-pct" id="warpChargePct">0%</div>
+    </div>
+
+    <!-- Warp Core Thermal Gauge & Cryogenic Coolant Tank HUD -->
+    <div class="warp-core-hud" id="warpCoreHud">
+      <div class="warp-core-header">
+        <span class="core-label">WARP CORE TEMP</span>
+        <span class="core-temp-val" id="coreTempVal">0%</span>
+      </div>
+      <div class="warp-core-track">
+        <div class="warp-core-bar" id="warpCoreBar"></div>
+      </div>
+      <div class="warp-core-sub" id="coreTempStatus">NOMINAL · 60s TO CRITICAL</div>
+
+      <div class="coolant-section" id="coolantSection">
+        <div class="coolant-header">
+          <span class="coolant-key-hint">[F] COOLANT PURGE</span>
+          <span class="coolant-val" id="coolantVal">100%</span>
+        </div>
+        <div class="coolant-track">
+          <div class="coolant-bar" id="coolantBar"></div>
+        </div>
+        <div class="coolant-sub" id="coolantSub">HOLD [F] TO PURGE (UP TO -50% HEAT)</div>
+      </div>
     </div>
 
     <!-- Planetary Mode HUD Elements -->
@@ -551,9 +944,13 @@
       ⚠ CRITICAL PRESSURE WARNING · PULL UP IMMEDIATELY! ⚠
     </div>
 
+    <div class="gravity-well-banner" id="gravityWellBanner">
+      ⚠ GRAVITY WELL DETECTED · DROPPING FROM CRUISE · ORBITAL INSERTION ⚠
+    </div>
+
     <div class="explosion-overlay" id="explosionOverlay">
       <div class="explosion-title">💥 VESSEL DESTROYED 💥</div>
-      <div class="explosion-sub">HULL CRUSHED BY SUPERCRITICAL ATMOSPHERIC PRESSURE · RESTARTING...</div>
+      <div class="explosion-sub" id="explosionSub">HULL CRUSHED BY SUPERCRITICAL ATMOSPHERIC PRESSURE · RESTARTING...</div>
     </div>
 
     <!-- Tiny, faint text overlay at the bottom -->
@@ -593,7 +990,7 @@
           </div>
           <div class="control-row">
             <span class="key-badge">F</span>
-            <span class="key-desc">Land on Rocky Planet (When Close to Surface)</span>
+            <span class="key-desc">Hold to Purge Coolant (Empties in 5s · -50% Heat) / Land on Rocky Planet</span>
           </div>
           <div class="control-row">
             <span class="key-badge">SPACE / W</span>
@@ -618,30 +1015,33 @@
 
         // Configuration
         var CONFIG = {
-          starCount: 110,               // Foreground physical 3D stars (No Man's Sky style)
+          starCount: 160,               // Foreground physical 3D stars (No Man's Sky style)
           bgStarCount: 2800,            // Deep cosmic background starfield with parallax
           bowParticleCount: 95,         // Bow slipstream particles shedding from ship nose
           edgeStreakCount: 75,          // Peripheral warp streaks along the screen edges
-          proximityTriggerDist: 15.0,   // Must fly into close proximity to trigger drop
-          approachNoticeDist: 48.0,     // Shows faint vicinity notice
-          solarBoundaryDist: 1080.0,    // Outside boundary returning to warp
+          proximityTriggerDist: 5.2,    // Increased drop to solar radius slightly (up from 3.0)
+          approachNoticeDist: 15.0,     // Shows faint vicinity notice
+          starScanMaxRange: 280.0,      // Reduced scanner range: only stars within 280 units can be scanned on HUD
+          solarBoundaryDist: 480000.0,  // Outside boundary returning to warp (scaled 10x for expanded solar system)
           warpChargeTime: 2.0,          // Hold Space for 2 seconds to charge warp drive
-          warpBaseSpeed: 70.0,          // Units per second cruising pace
-          warpMinSpeed: 16.0,           // Units per second when holding 'S' (slow crawl)
-          warpMaxSpeed: 220.0,          // Units per second when holding 'W' (boost warp)
+          warpBaseSpeed: 60.0,          // Units per second cruising pace
+          warpMinSpeed: 15.0,           // Units per second when holding 'S' (slow crawl)
+          warpMaxSpeed: 125.0,          // Moderated maximum warp speed for controlled interstellar cruising
           strafeSpeed: 95.0,            // Lateral units per second when holding A/D
-          solarMaxSpeed: 42.0,          // Max units per second forward thrust in solar systems
-          solarCruiseSpeed: 24.0,       // Cruising speed in solar systems
-          solarReverseSpeed: 14.0,      // Reverse thruster speed
-          solarStrafeSpeed: 18.0,       // Strafe speed in solar systems
-          // Planetary Mode Speeds (Slower & atmospheric)
-          planetCruiseSpeed: 6.0,       // Slower cruise speed to explore down to surface
-          planetMaxSpeed: 10.0,         // Max forward atmospheric thrust
-          planetReverseSpeed: 3.5,      // Reverse thruster speed
-          planetStrafeSpeed: 4.5,       // Lateral strafe speed
-          planetApproachDistRatio: 3.2, // Proximity ratio to drop into planetary mode
-          planetEscapeDistRatio: 4.2,   // Distance ratio to break orbit back into solar cruise
-          rockyLandAltitudeRatio: 0.35, // Altitude ratio where landing with F is available
+          // Solar Cruise Speeds: Min is half normal cruise speed (7500 m/s), Max 3x faster (26,100 m/s!)
+          solarMinSpeed: 7500.0,        // Minimum forward cruise pace when holding S (half normal speed 15000.0)
+          solarCruiseSpeed: 15000.0,    // Default cruising pace in vast solar space
+          solarBoostSpeed: 26100.0,     // Max forward boost when holding W (3x faster: 26,100 m/s!)
+          solarStrafeSpeed: 3600.0,     // Lateral strafe speed scaled for high-speed maneuvering
+          // Planetary Mode Speeds (Increased 3.5x-4x for vast, majestic planetary exploration)
+          planetMinSpeed: 35.0,         // Minimum flight speed in atmosphere (3.5x faster)
+          planetCruiseSpeed: 85.0,      // Cruising pace over landscape (3.9x faster)
+          planetBoostSpeed: 240.0,      // High-speed boost over terrain when holding W (4.4x faster)
+          planetStrafeSpeed: 55.0,      // Lateral strafe speed (3.7x faster)
+          planetLaunchSpeed: 80.0,      // Controlled vertical liftoff surge from surface (3.1x faster)
+          planetApproachDistRatio: 2.2, // Proximity ratio to enter atmospheric planetary mode
+          planetEscapeDistRatio: 2.7,   // Distance ratio to break orbit back into solar cruise
+          rockyLandAltitude: 85.0,      // Altitude above surface where landing with [F] is ready
           hyperspaceCooldownTime: 3.0,  // Grace period after returning to hyperspace
           // Freelancer Virtual Joystick Turning Rates
           maxYawRate: 1.85,             // Radians per second
@@ -656,6 +1056,8 @@
           isPaused: true,               // Game starts paused with Pause Menu
           warpSpeed: CONFIG.warpBaseSpeed,
           targetWarpSpeed: CONFIG.warpBaseSpeed,
+          solarSpeed: CONFIG.solarCruiseSpeed,   // Current dynamic speed in solar cruise
+          planetSpeed: CONFIG.planetCruiseSpeed, // Current dynamic speed in planetary flight
           spaceHeld: false,
           warpCharging: false,
           warpChargeProgress: 0.0,
@@ -667,9 +1069,16 @@
           // Planetary Mode State
           activePlanet: null,           // Current planet being explored
           isLanded: false,              // Touchdown on rocky planet surface
+          landedLocalPos: new THREE.Vector3(),  // Position relative to rotating planet mesh
+          landedLocalQuat: new THREE.Quaternion(), // Orientation relative to rotating planet mesh
+          lastPlanetPos: new THREE.Vector3(),   // For orbital reference frame tracking
           isExploding: false,           // Structural implosion sequence in gas giant
           explosionTime: 0,
-          planetAltitude: 0             // Altitude above surface in units
+          planetAltitude: 0,            // Real-time terrain clearance altitude in units
+          planetEntryAlignTimer: 0.0,   // Smooth entry transition alignment timer
+          warpCoreTemp: 0.0,            // Warp core temperature percentage: 0% to 100% (critical breach)
+          coolantLevel: 1.0,            // Cryogenic coolant reserve: 1.0 = 100% full (cools up to 50% heat)
+          coolantVenting: false         // True while holding F to purge coolant
         };
 
         var keys = {
@@ -678,7 +1087,8 @@
           s: false,
           d: false,
           q: false,
-          e: false
+          e: false,
+          f: false
         };
 
         var mouse = { x: 0, y: 0 };
@@ -704,6 +1114,26 @@
         var warpChargeBar = document.getElementById('warpChargeBar');
         var warpChargePct = document.getElementById('warpChargePct');
         var warpChargeLabel = document.getElementById('warpChargeLabel');
+        var warpCoreHud = document.getElementById('warpCoreHud');
+        var warpCoreBar = document.getElementById('warpCoreBar');
+        var coreTempVal = document.getElementById('coreTempVal');
+        var coreTempStatus = document.getElementById('coreTempStatus');
+
+        // Star & Planet Scanner and Mission Guidance DOM references
+        var missionGuidanceBanner = document.getElementById('missionGuidanceBanner');
+        var starScanReticle = document.getElementById('starScanReticle');
+        var starScannerCard = document.getElementById('starScannerCard');
+        var scanHeaderTitle = document.getElementById('scanHeaderTitle');
+        var scanStarName = document.getElementById('scanStarName');
+        var scanTypeLabel = document.getElementById('scanTypeLabel');
+        var scanStarClass = document.getElementById('scanStarClass');
+        var scanStarDist = document.getElementById('scanStarDist');
+
+        // Coolant Gauge DOM references
+        var coolantSection = document.getElementById('coolantSection');
+        var coolantBar = document.getElementById('coolantBar');
+        var coolantVal = document.getElementById('coolantVal');
+        var coolantSub = document.getElementById('coolantSub');
 
         // Planetary Mode DOM references
         var planetaryTelemetry = document.getElementById('planetaryTelemetry');
@@ -715,6 +1145,7 @@
         var telemStatus = document.getElementById('telemStatus');
         var landingPrompt = document.getElementById('landingPrompt');
         var gasWarningBanner = document.getElementById('gasWarningBanner');
+        var gravityWellBanner = document.getElementById('gravityWellBanner');
         var explosionOverlay = document.getElementById('explosionOverlay');
         var explosionGroup = null;
 
@@ -726,6 +1157,147 @@
           warpChargePct.textContent = clampedPct + '%';
           if (labelText && warpChargeLabel) {
             warpChargeLabel.textContent = labelText;
+          }
+        }
+
+        function updateWarpCoreUI(tempPct, inIce, inThermal, modeOverride) {
+          if (!warpCoreHud || !warpCoreBar || !coreTempVal || !coreTempStatus) return;
+          if (STATE.isExploding) {
+            warpCoreHud.style.opacity = '0';
+            return;
+          }
+          // The warp core meter stays visible across ALL modes to display cooling!
+          warpCoreHud.style.opacity = '1';
+          var clamped = Math.min(100.0, Math.max(0.0, tempPct));
+          warpCoreBar.style.width = clamped.toFixed(1) + '%';
+          coreTempVal.textContent = Math.round(clamped) + '%';
+
+          warpCoreHud.classList.remove('warning', 'critical', 'cooling');
+
+          var currentMode = modeOverride || STATE.mode;
+
+          if (currentMode === MODE_SOLAR) {
+            // Solar Cruise Cooling: very slow heat dissipation; accelerating heats it up!
+            if (keys.w) {
+              warpCoreHud.classList.add('warning');
+              coreTempStatus.textContent = 'ACCELERATION HEATING · +0.7%/s (HOLD [F] TO PURGE)';
+            } else if (clamped > 0.1) {
+              warpCoreHud.classList.add('cooling');
+              var secsToCool = Math.ceil(clamped / 0.35);
+              coreTempStatus.textContent = 'SOLAR SPACE COOLING (VERY SLOW · ' + secsToCool + 's) · DROP TO PLANET';
+            } else {
+              coreTempStatus.textContent = 'WARP CORE CHILLED · 0% (WARP READY)';
+            }
+          } else if (currentMode === MODE_PLANET) {
+            // Planetary Mode Cooling: warp drive offline, rapid heat sink
+            if (clamped > 0.1) {
+              warpCoreHud.classList.add('cooling');
+              var secsToCool = Math.ceil(clamped / 6.5);
+              coreTempStatus.textContent = 'WARP OFFLINE · RAPID ATMOSPHERIC SINK · ' + secsToCool + 's';
+            } else {
+              coreTempStatus.textContent = 'WARP CORE CHILLED · 0% (OPTIMAL)';
+            }
+          } else {
+            // Hyperspace Mode: Active warp core heating mechanics
+            if (inIce) {
+              warpCoreHud.classList.add('cooling');
+              coreTempStatus.textContent = '❄ CRYOGENIC COOLING ACTIVE';
+            } else if (inThermal) {
+              warpCoreHud.classList.add('critical');
+              coreTempStatus.textContent = '⚠ THERMAL SURGE OVERHEATING';
+            } else if (clamped >= 80.0) {
+              warpCoreHud.classList.add('critical');
+              var effRate = keys.w ? 5.0 : (keys.s ? 0.833 : 1.667);
+              var secsLeft = Math.max(1, Math.round((100.0 - clamped) / effRate));
+              coreTempStatus.textContent = 'CRITICAL OVERHEAT · ' + secsLeft + 's';
+            } else if (clamped >= 60.0) {
+              warpCoreHud.classList.add('warning');
+              var effRate = keys.w ? 5.0 : (keys.s ? 0.833 : 1.667);
+              var secsLeft = Math.max(1, Math.round((100.0 - clamped) / effRate));
+              coreTempStatus.textContent = 'WARP CORE HEATING · ' + secsLeft + 's';
+            } else {
+              var effRate = keys.w ? 5.0 : (keys.s ? 0.833 : 1.667);
+              var secsLeft = Math.max(1, Math.round((100.0 - clamped) / effRate));
+              coreTempStatus.textContent = 'WARP ACTIVE · ' + secsLeft + 's TO CRITICAL';
+            }
+          }
+
+          if (!STATE.coolantVenting) {
+            updateCoolantUI(false, false);
+          }
+        }
+
+        function updateCoolantUI(isScooping, isVenting) {
+          if (!coolantBar || !coolantVal || !coolantSub) return;
+          var pct = Math.min(100, Math.max(0, Math.round(STATE.coolantLevel * 100)));
+          coolantBar.style.width = pct + '%';
+          coolantVal.textContent = pct + '%';
+
+          if (coolantSection) {
+            coolantSection.classList.remove('empty', 'scooping', 'venting');
+            if (isScooping) {
+              coolantSection.classList.add('scooping');
+              coolantSub.textContent = 'SCOOPING ATMOSPHERE (' + pct + '%)';
+            } else if (isVenting) {
+              coolantSection.classList.add('venting');
+              coolantSub.textContent = 'VENTING COOLANT (-10%/s HEAT)';
+            } else if (pct <= 0) {
+              coolantSection.classList.add('empty');
+              coolantSub.textContent = 'DEPLETED · SCOOP GAS GIANT';
+            } else {
+              var maxCool = Math.round(STATE.coolantLevel * 50);
+              coolantSub.textContent = 'HOLD [F] TO PURGE (UP TO -' + maxCool + '% HEAT)';
+            }
+          }
+        }
+
+        function triggerCoolantPurge() {
+          if (STATE.isExploding) return;
+          if (STATE.coolantLevel <= 0.005) {
+            if (boundaryWarning) {
+              boundaryWarning.textContent = '⚠ COOLANT TANK EMPTY · SCOOP CRYOGENIC GASES IN A GAS GIANT ⚠';
+              boundaryWarning.style.opacity = '0.9';
+              setTimeout(function() {
+                if (boundaryWarning && boundaryWarning.textContent.indexOf('COOLANT') !== -1) {
+                  boundaryWarning.style.opacity = '0';
+                }
+              }, 2500);
+            }
+            return;
+          }
+          if (STATE.warpCoreTemp <= 0.05) {
+            if (boundaryWarning) {
+              boundaryWarning.textContent = 'WARP CORE TEMPERATURE OPTIMAL (NO PURGE NEEDED)';
+              boundaryWarning.style.opacity = '0.7';
+              setTimeout(function() {
+                if (boundaryWarning && boundaryWarning.textContent.indexOf('OPTIMAL') !== -1) {
+                  boundaryWarning.style.opacity = '0';
+                }
+              }, 1800);
+            }
+            return;
+          }
+
+          // Full tank cools a maximum of 50% of the core temp bar
+          var maxCoolAvailable = STATE.coolantLevel * 50.0;
+          var actualCool = Math.min(maxCoolAvailable, STATE.warpCoreTemp);
+          var coolantFractionUsed = actualCool / 50.0;
+
+          STATE.warpCoreTemp = Math.max(0.0, STATE.warpCoreTemp - actualCool);
+          STATE.coolantLevel = Math.max(0.0, STATE.coolantLevel - coolantFractionUsed);
+
+          updateWarpCoreUI(STATE.warpCoreTemp, false, false);
+          updateCoolantUI(false);
+
+          STATE.shakeIntensity = 0.55;
+          if (boundaryWarning) {
+            boundaryWarning.textContent = '❄ CRYOGENIC COOLANT PURGE · -' + Math.round(actualCool) + '% CORE HEAT (TANK: ' + Math.round(STATE.coolantLevel * 100) + '%) ❄';
+            boundaryWarning.style.opacity = '0.95';
+            setTimeout(function() {
+              if (boundaryWarning && boundaryWarning.textContent.indexOf('PURGE') !== -1) {
+                boundaryWarning.style.opacity = '0';
+              }
+            }, 2600);
           }
         }
 
@@ -744,6 +1316,7 @@
             keys.d = false;
             keys.q = false;
             keys.e = false;
+            keys.f = false;
             STATE.spaceHeld = false;
             STATE.warpCharging = false;
             STATE.warpChargeProgress = 0.0;
@@ -780,6 +1353,20 @@
         var currentSolarFlare = null;
         var orbitingPlanets = [];
         var boundaryRing = null;
+        var orbitLinesGroup = null;
+        var gasCloudPuffGroup = null;
+        var gasCloudPuffs = [];
+        var gasLightningFlash = null;
+        var gasLightningTimer = 0;
+        var hyperspaceNebulae = [];
+        var hyperspaceNebulaGroup = null;
+        var nebulaPuffTexture = null;
+        var bowShockwaveGroup = null;
+        var bowShockwaveTimer = 0;
+        var bowShockwaveRing = null;
+        var bowShockwaveAura = null;
+        var bowShockwaveCone = null;
+        var bowShockwaveGlint = null;
 
         // Rich stellar classifications for No Man's Sky style physical stars
         var STELLAR_PALETTES = [
@@ -810,13 +1397,14 @@
           scene.fog = new THREE.FogExp2(0x010103, 0.00035);
 
           // Camera setup (Chase Camera)
-          camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 4500);
+          camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.5, 1600000);
           camera.position.set(0, 2.5, 9.2);
 
           // Renderer
           renderer = new THREE.WebGLRenderer({
             canvas: canvas,
             antialias: true,
+            logarithmicDepthBuffer: true,
             powerPreference: 'high-performance'
           });
           renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -838,6 +1426,9 @@
           // 1. Build Geometric Arrowhead Ship with flush circular glowing engines
           createArrowheadShip();
 
+          // 1b. Build Bow Hypersonic Shockwave System
+          initBowShockwave();
+
           // 2. Build Bow Slipstream Particle Streaks
           initBowSlipstream();
 
@@ -853,6 +1444,12 @@
           // 5. Initialize Edge Speed Streaks System
           initEdgeSpeedStreaks();
 
+          // 6. Initialize Gas Giant Volumetric Cloud Puff System
+          initGasCloudPuffSystem();
+
+          // 7. Initialize Hyperspace Ion Nebulae & Gas Cloud Obstacles
+          initHyperspaceNebulae();
+
           // Event Listeners (Global window key binding and canvas focus)
           window.addEventListener('resize', onWindowResize, false);
           window.addEventListener('keydown', onKeyDown, false);
@@ -864,6 +1461,7 @@
             keys.d = false;
             keys.q = false;
             keys.e = false;
+            keys.f = false;
             STATE.spaceHeld = false;
             STATE.warpCharging = false;
             STATE.warpChargeProgress = 0.0;
@@ -887,6 +1485,16 @@
               e.stopPropagation();
               togglePause(false);
             });
+          }
+
+          // Display initial guidance advising player to fly to a star to drop out of warp
+          if (missionGuidanceBanner) {
+            missionGuidanceBanner.style.opacity = '1';
+            setTimeout(function() {
+              if (missionGuidanceBanner && STATE.mode === MODE_HYPERSPACE) {
+                missionGuidanceBanner.style.opacity = '0';
+              }
+            }, 8500);
           }
 
           onWindowResize();
@@ -1061,6 +1669,77 @@
         }
 
         // ==============================================================
+        // Bow Hypersonic Compression Shockwave (Dropping From Cruise)
+        // ==============================================================
+        function initBowShockwave() {
+          bowShockwaveGroup = new THREE.Group();
+          // Position right at the needle nose/bow of the vessel (0, 0, -2.9)
+          bowShockwaveGroup.position.set(0, 0, -2.9);
+
+          // 1. Primary glowing ion compression shock ring
+          var ringGeo = new THREE.RingGeometry(0.2, 0.65, 36);
+          var ringMat = new THREE.MeshBasicMaterial({
+            color: 0x67e8f9,
+            transparent: true,
+            opacity: 0.0,
+            side: THREE.DoubleSide,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+          });
+          bowShockwaveRing = new THREE.Mesh(ringGeo, ringMat);
+          bowShockwaveGroup.add(bowShockwaveRing);
+
+          // 2. Secondary diffused aura ring
+          var auraGeo = new THREE.RingGeometry(0.5, 1.4, 36);
+          var auraMat = new THREE.MeshBasicMaterial({
+            color: 0x38bdf8,
+            transparent: true,
+            opacity: 0.0,
+            side: THREE.DoubleSide,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+          });
+          bowShockwaveAura = new THREE.Mesh(auraGeo, auraMat);
+          bowShockwaveGroup.add(bowShockwaveAura);
+
+          // 3. Mach compression shock cone streaming back along +Z over the hull
+          var coneGeo = new THREE.ConeGeometry(0.8, 3.2, 32, 1, true);
+          coneGeo.rotateX(Math.PI / 2);
+          coneGeo.translate(0, 0, 1.6);
+          var coneMat = new THREE.MeshBasicMaterial({
+            color: 0xbae6fd,
+            transparent: true,
+            opacity: 0.0,
+            side: THREE.DoubleSide,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+          });
+          bowShockwaveCone = new THREE.Mesh(coneGeo, coneMat);
+          bowShockwaveGroup.add(bowShockwaveCone);
+
+          // 4. Brilliant point glint at the nose tip
+          var glintGeo = new THREE.SphereGeometry(0.5, 16, 16);
+          var glintMat = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.0,
+            blending: THREE.AdditiveBlending
+          });
+          bowShockwaveGlint = new THREE.Mesh(glintGeo, glintMat);
+          bowShockwaveGroup.add(bowShockwaveGlint);
+
+          bowShockwaveGroup.visible = false;
+          shipGroup.add(bowShockwaveGroup);
+        }
+
+        function triggerBowShockwave() {
+          bowShockwaveTimer = 0.95;
+          if (bowShockwaveGroup) {
+            bowShockwaveGroup.visible = true;
+          }
+        }
+
+        // ==============================================================
         // Bow Slipstream Particle System (Plasma Streaks from Nose)
         // ==============================================================
         function initBowSlipstream() {
@@ -1146,16 +1825,31 @@
           var h = edgeCanvas.height;
           edgeCtx.clearRect(0, 0, w, h);
 
-          if (STATE.mode !== MODE_HYPERSPACE) return;
+          var speedRatio = 1.0;
+          var boostRatio = 0.0;
 
-          var speedRatio = STATE.warpSpeed / CONFIG.warpBaseSpeed;
-          var boostRatio = Math.max(0, (STATE.warpSpeed - CONFIG.warpBaseSpeed) / (CONFIG.warpMaxSpeed - CONFIG.warpBaseSpeed));
+          if (STATE.mode === MODE_HYPERSPACE) {
+            speedRatio = STATE.warpSpeed / CONFIG.warpBaseSpeed;
+            boostRatio = Math.max(0, (STATE.warpSpeed - CONFIG.warpBaseSpeed) / (CONFIG.warpMaxSpeed - CONFIG.warpBaseSpeed));
+          } else if (STATE.mode === MODE_SOLAR) {
+            // Speed action streaks appear when boosting above normal cruise speed, flaring brightly at max speed and disappearing at normal speed
+            boostRatio = Math.max(0, (STATE.solarSpeed - CONFIG.solarCruiseSpeed) / (CONFIG.solarBoostSpeed - CONFIG.solarCruiseSpeed));
+            if (boostRatio <= 0.03) {
+              return; // Completely disappear at normal cruise or lower speeds
+            }
+            speedRatio = 1.2 + boostRatio * 2.4;
+          } else {
+            return;
+          }
+
           var cx = w * 0.5;
           var cy = h * 0.5;
           var maxR = Math.hypot(cx, cy);
 
           // Master opacity scales with speed and boost
-          var masterAlpha = Math.min(1.0, 0.3 + boostRatio * 0.7);
+          var masterAlpha = (STATE.mode === MODE_SOLAR)
+            ? Math.min(1.0, boostRatio * 0.95)
+            : Math.min(1.0, 0.3 + boostRatio * 0.7);
 
           for (var i = 0; i < edgeStreaks.length; i++) {
             var st = edgeStreaks[i];
@@ -1168,7 +1862,7 @@
             }
 
             var r1 = st.dist * maxR;
-            var curLen = (st.length * (0.8 + boostRatio * 2.2));
+            var curLen = (st.length * (0.8 + boostRatio * 2.6));
             var r0 = Math.max(0, r1 - curLen);
 
             var cosA = Math.cos(st.angle);
@@ -1186,7 +1880,7 @@
             grad.addColorStop(1, 'rgba(255, 255, 255, ' + alpha.toFixed(3) + ')');
 
             edgeCtx.strokeStyle = grad;
-            edgeCtx.lineWidth = st.width * (1.0 + boostRatio * 1.2);
+            edgeCtx.lineWidth = st.width * (1.0 + boostRatio * 1.3);
             edgeCtx.beginPath();
             edgeCtx.moveTo(x0, y0);
             edgeCtx.lineTo(x1, y1);
@@ -1240,6 +1934,7 @@
 
           if (hyperspaceFlash) {
             hyperspaceFlash.style.transition = 'none';
+            hyperspaceFlash.style.background = '';
             hyperspaceFlash.style.opacity = '0.85';
             void hyperspaceFlash.offsetWidth; // Force reflow
             hyperspaceFlash.style.transition = 'opacity 0.45s cubic-bezier(0.1, 0.85, 0.2, 1)';
@@ -1331,7 +2026,7 @@
             var v = Math.random();
             var theta = u * 2.0 * Math.PI;
             var phi = Math.acos(2.0 * v - 1.0);
-            var r = 1600 + Math.random() * 800;
+            var r = 800000 + Math.random() * 400000;
 
             positions[i3 + 0] = r * Math.sin(phi) * Math.cos(theta);
             positions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
@@ -1369,6 +2064,148 @@
           solarStarfieldPoints = new THREE.Points(solarStarGeometry, mat);
           solarStarfieldPoints.visible = false;
           scene.add(solarStarfieldPoints);
+        }
+
+        // ==============================================================
+        // Procedural 3D Low-Poly Terrain Generator (Mountains, Valleys & Ridges)
+        // ==============================================================
+        function hash3D(x, y, z, seed) {
+          var n = Math.sin(x * 127.1 + y * 311.7 + z * 74.7 + (seed || 0) * 43.13) * 43758.5453123;
+          return n - Math.floor(n);
+        }
+
+        function smoothNoise3D(x, y, z, seed) {
+          var ix = Math.floor(x);
+          var iy = Math.floor(y);
+          var iz = Math.floor(z);
+          var fx = x - ix;
+          var fy = y - iy;
+          var fz = z - iz;
+
+          var u = fx * fx * (3.0 - 2.0 * fx);
+          var v = fy * fy * (3.0 - 2.0 * fy);
+          var w = fz * fz * (3.0 - 2.0 * fz);
+
+          var s = seed || 0;
+          return (
+            hash3D(ix, iy, iz, s) * (1 - u) * (1 - v) * (1 - w) +
+            hash3D(ix + 1, iy, iz, s) * u * (1 - v) * (1 - w) +
+            hash3D(ix, iy + 1, iz, s) * (1 - u) * v * (1 - w) +
+            hash3D(ix + 1, iy + 1, iz, s) * u * v * (1 - w) +
+            hash3D(ix, iy, iz + 1, s) * (1 - u) * (1 - v) * w +
+            hash3D(ix + 1, iy, iz + 1, s) * u * (1 - v) * w +
+            hash3D(ix, iy + 1, iz + 1, s) * (1 - u) * v * w +
+            hash3D(ix + 1, iy + 1, iz + 1, s) * u * v * w
+          );
+        }
+
+        function getPlanetTerrainElevation(norm, seed, baseRadius, subType) {
+          var s = seed || 42;
+          var nx = norm.x;
+          var ny = norm.y;
+          var nz = norm.z;
+
+          // Multi-scale procedural noise octaves
+          var n1 = smoothNoise3D(nx * 2.2, ny * 2.2, nz * 2.2, s) * 2.0 - 1.0;
+          var n2 = smoothNoise3D(nx * 5.4, ny * 5.4, nz * 5.4, s + 13.7) * 2.0 - 1.0;
+          var n3 = smoothNoise3D(nx * 12.0, ny * 12.0, nz * 12.0, s + 31.4) * 2.0 - 1.0;
+          var n4 = smoothNoise3D(nx * 25.0, ny * 25.0, nz * 25.0, s + 57.1) * 2.0 - 1.0;
+
+          // Sharp mountain ridges: (1 - abs(n2))^2 creates pronounced alpine crests
+          var ridge = 1.0 - Math.abs(n2);
+          ridge = ridge * ridge;
+
+          // Valleys, craters and lowlands
+          var valley = Math.min(0, n1 * 0.7);
+
+          // Subtype-specific mountain scaling
+          var amp = 0.085 * baseRadius; // ~4 to 5 units high on radius 50
+          if (subType === 'volcanic') amp = 0.115 * baseRadius; // rugged jagged volcanic calderas
+          if (subType === 'desert') amp = 0.068 * baseRadius;   // rolling dunes & flat mesas
+          if (subType === 'frozen') amp = 0.092 * baseRadius;   // glacial spires & icy crevasses
+          if (subType === 'barren') amp = 0.088 * baseRadius;   // impact crater rims & basalt rifts
+
+          return (n1 * 0.42 + ridge * 0.44 + n3 * 0.18 + n4 * 0.07 + valley) * amp;
+        }
+
+        function applyProceduralTerrain(geo, baseRadius, subType, seed) {
+          var pos = geo.attributes.position;
+          var count = pos.count;
+          var colors = new Float32Array(count * 3);
+
+          var palettes = {
+            terrestrial: {
+              peak: [0.95, 0.98, 1.0],      // Snow-capped alpine crests
+              slope: [0.42, 0.38, 0.33],    // Granite cliff faces
+              plain: [0.22, 0.52, 0.26],    // Vibrant green biome
+              valley: [0.10, 0.28, 0.42]    // Deep coastal water / basins
+            },
+            desert: {
+              peak: [0.96, 0.84, 0.68],     // Sun-bleached mesa plateaus
+              slope: [0.74, 0.36, 0.20],    // Red canyon rock
+              plain: [0.88, 0.54, 0.30],    // Warm terracotta dunes
+              valley: [0.58, 0.24, 0.14]    // Deep oxidized canyon floors
+            },
+            volcanic: {
+              peak: [1.0, 0.42, 0.08],      // Incandescent caldera / brimstone
+              slope: [0.24, 0.22, 0.26],    // Dark basalt crags
+              plain: [0.15, 0.14, 0.18],    // Hardened obsidian crust
+              valley: [0.85, 0.20, 0.04]    // Magma vents & fissures
+            },
+            frozen: {
+              peak: [1.0, 1.0, 1.0],        // Pure white ice spires
+              slope: [0.74, 0.86, 0.96],    // Glacial serac blues
+              plain: [0.60, 0.76, 0.90],    // Permafrost plains
+              valley: [0.35, 0.50, 0.68]    // Cobalt ice crevasses
+            },
+            barren: {
+              peak: [0.88, 0.88, 0.92],     // High crater rim ridges
+              slope: [0.55, 0.55, 0.58],    // Regolith slopes
+              plain: [0.42, 0.42, 0.46],    // Lunar mare basalt plains
+              valley: [0.26, 0.26, 0.30]    // Deep impact crater bottoms
+            }
+          };
+
+          var pal = palettes[subType] || palettes.terrestrial;
+          var v3 = new THREE.Vector3();
+
+          for (var i = 0; i < count; i++) {
+            v3.fromBufferAttribute(pos, i);
+            var norm = v3.clone().normalize();
+            var elev = getPlanetTerrainElevation(norm, seed, baseRadius, subType);
+            var newR = baseRadius + elev;
+            pos.setXYZ(i, norm.x * newR, norm.y * newR, norm.z * newR);
+
+            // Altitude gradient mapping for low-poly shading
+            var t = (elev + 0.08 * baseRadius) / (0.18 * baseRadius);
+            t = Math.max(0, Math.min(1, t));
+
+            var r, g, b;
+            if (t > 0.72) {
+              var k = (t - 0.72) / 0.28;
+              r = pal.slope[0] * (1 - k) + pal.peak[0] * k;
+              g = pal.slope[1] * (1 - k) + pal.peak[1] * k;
+              b = pal.slope[2] * (1 - k) + pal.peak[2] * k;
+            } else if (t > 0.35) {
+              var k = (t - 0.35) / 0.37;
+              r = pal.plain[0] * (1 - k) + pal.slope[0] * k;
+              g = pal.plain[1] * (1 - k) + pal.slope[1] * k;
+              b = pal.plain[2] * (1 - k) + pal.slope[2] * k;
+            } else {
+              var k = t / 0.35;
+              r = pal.valley[0] * (1 - k) + pal.plain[0] * k;
+              g = pal.valley[1] * (1 - k) + pal.plain[1] * k;
+              b = pal.valley[2] * (1 - k) + pal.plain[2] * k;
+            }
+
+            colors[i * 3 + 0] = r;
+            colors[i * 3 + 1] = g;
+            colors[i * 3 + 2] = b;
+          }
+
+          geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+          pos.needsUpdate = true;
+          geo.computeVertexNormals();
         }
 
         // ==============================================================
@@ -1617,6 +2454,94 @@
           return texture;
         }
 
+        // Procedural Volumetric Gas Cloud Puff Texture with Soft Gaussian Falloff
+        function createGasCloudPuffTexture() {
+          var c = document.createElement('canvas');
+          c.width = 256;
+          c.height = 256;
+          var ctx = c.getContext('2d');
+          ctx.clearRect(0, 0, 256, 256);
+
+          var centers = [
+            { x: 128, y: 128, r: 110, a: 0.8 },
+            { x: 95, y: 115, r: 85, a: 0.6 },
+            { x: 160, y: 110, r: 80, a: 0.55 },
+            { x: 115, y: 155, r: 90, a: 0.6 },
+            { x: 150, y: 145, r: 85, a: 0.5 },
+            { x: 80, y: 140, r: 70, a: 0.45 },
+            { x: 175, y: 135, r: 70, a: 0.45 }
+          ];
+
+          for (var i = 0; i < centers.length; i++) {
+            var p = centers[i];
+            var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+            grad.addColorStop(0, 'rgba(255, 255, 255, ' + p.a + ')');
+            grad.addColorStop(0.35, 'rgba(245, 248, 255, ' + (p.a * 0.7) + ')');
+            grad.addColorStop(0.7, 'rgba(235, 242, 255, ' + (p.a * 0.25) + ')');
+            grad.addColorStop(1, 'rgba(230, 240, 255, 0)');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          return new THREE.CanvasTexture(c);
+        }
+
+        // Initialize Local Volumetric Cloud Puff Particles around ship for Gas Giant Atmospheric Flight
+        function initGasCloudPuffSystem() {
+          if (gasCloudPuffGroup) return;
+          gasCloudPuffGroup = new THREE.Group();
+          gasCloudPuffGroup.visible = false;
+          scene.add(gasCloudPuffGroup);
+
+          var cloudTex = createGasCloudPuffTexture();
+          var puffCount = 90;
+          gasCloudPuffs = [];
+
+          for (var i = 0; i < puffCount; i++) {
+            var mat = new THREE.SpriteMaterial({
+              map: cloudTex,
+              transparent: true,
+              opacity: 0.0,
+              depthWrite: false,
+              blending: THREE.NormalBlending
+            });
+            var sprite = new THREE.Sprite(mat);
+            var u = Math.random();
+            var v = Math.random();
+            var theta = u * 2.0 * Math.PI;
+            var phi = Math.acos(2.0 * v - 1.0);
+            var r = 10 + Math.pow(Math.random(), 0.7) * 75;
+
+            var relPos = new THREE.Vector3(
+              r * Math.sin(phi) * Math.cos(theta),
+              r * Math.sin(phi) * Math.sin(theta) * 0.7,
+              r * Math.cos(phi)
+            );
+
+            var baseScale = 22 + Math.random() * 32;
+            sprite.scale.set(baseScale, baseScale, 1.0);
+
+            gasCloudPuffs.push({
+              sprite: sprite,
+              relPos: relPos,
+              baseScale: baseScale,
+              baseOpacity: 0.22 + Math.random() * 0.28,
+              driftX: (Math.random() - 0.5) * 3.5,
+              driftY: (Math.random() - 0.5) * 2.0,
+              driftZ: (Math.random() - 0.5) * 3.5,
+              rotSpeed: (Math.random() - 0.5) * 0.05
+            });
+
+            gasCloudPuffGroup.add(sprite);
+          }
+
+          // Atmospheric storm lightning discharge light
+          gasLightningFlash = new THREE.PointLight(0xffffff, 0, 1500);
+          scene.add(gasLightningFlash);
+        }
+
         // Procedural Planetary Ring Texture with Cassini Division
         function createRingTexture(baseColorHex) {
           var c = document.createElement('canvas');
@@ -1650,6 +2575,18 @@
         // ==============================================================
         // Foreground Physical 3D Stars (No Man's Sky Loading Style)
         // ==============================================================
+        var starGlintTextures = {};
+        function getStarGlintTextures(stellarData) {
+          var key = stellarData.name || ('c_' + stellarData.color.toString(16));
+          if (!starGlintTextures[key]) {
+            starGlintTextures[key] = {
+              spikes: createDiffractionSpikesTexture(stellarData.color),
+              streak: createAnamorphicFlareTexture(stellarData.streak || stellarData.corona)
+            };
+          }
+          return starGlintTextures[key];
+        }
+
         function initPhysicalHyperspaceStars() {
           hyperspaceGroup = new THREE.Group();
           scene.add(hyperspaceGroup);
@@ -1666,6 +2603,23 @@
           var starGroup = new THREE.Group();
 
           var stellarData = STELLAR_PALETTES[Math.floor(Math.random() * STELLAR_PALETTES.length)];
+          var STAR_NAMES = [
+            'Kepler-452', 'Alpha Centauri', 'Vega Prime', 'Sirius Major', 'Epsilon Eridani',
+            'Trappist-1', 'Gliese 667', 'Tau Ceti', 'Proxima Orionis', 'Betelgeuse Reach',
+            'Cygnus Rift', 'Altair Sector', 'Polaris Australis', 'Fomalhaut Veil', 'Rigel Expanse'
+          ];
+          var starName = STAR_NAMES[Math.floor(Math.random() * STAR_NAMES.length)] + ' ' + (Math.floor(10 + Math.random() * 90));
+          var spectralMap = {
+            'hyper-blue': 'CLASS O (BLUE SUPERGIANT)',
+            'deep-azure': 'CLASS B (BLUE-WHITE SUBGIANT)',
+            'radiant-white': 'CLASS A (WHITE MAIN SEQUENCE)',
+            'warm-sol': 'CLASS G (YELLOW DWARF · SOL-LIKE)',
+            'pulsar-violet': 'CLASS M/P (VIOLET PULSAR BINARY)',
+            'emerald-giant': 'CLASS F (EMERALD GIANT)',
+            'amber-tangerine': 'CLASS K (ORANGE HYPERGIANT)'
+          };
+          var spectralClass = spectralMap[stellarData.name] || 'CLASS G (STELLAR BODY)';
+          var planetsCount = 3 + Math.floor(Math.random() * 4); // 3 to 6 exoplanets
           // Smaller refined star sizes to prevent accidental collisions (0.85 to 2.45 radius)
           var radius = 0.85 + Math.pow(Math.random(), 1.6) * 1.6;
 
@@ -1701,6 +2655,31 @@
           var haloMesh = new THREE.Mesh(haloGeo, haloMat);
           starGroup.add(haloMesh);
 
+          // Star Lens Flare Glint and Anamorphic Streak Sprites
+          var glintTexs = getStarGlintTextures(stellarData);
+
+          var glintMat = new THREE.SpriteMaterial({
+            map: glintTexs.spikes,
+            transparent: true,
+            opacity: 0.85,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+          });
+          var glintSprite = new THREE.Sprite(glintMat);
+          glintSprite.scale.set(radius * 2.2, radius * 2.2, 1.0);
+          starGroup.add(glintSprite);
+
+          var streakMat = new THREE.SpriteMaterial({
+            map: glintTexs.streak,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+          });
+          var streakSprite = new THREE.Sprite(streakMat);
+          streakSprite.scale.set(radius * 4.5, radius * 0.5, 1.0);
+          starGroup.add(streakSprite);
+
           // Dynamic speed streak tail
           var trailGeo = new THREE.BufferGeometry();
           var trailPositions = new Float32Array([
@@ -1718,10 +2697,10 @@
           var trailMesh = new THREE.Line(trailGeo, trailMat);
           starGroup.add(trailMesh);
 
-          // Spatial distribution with safe clearance corridor
-          var rSpread = 34 + Math.pow(Math.random(), 1.4) * 360;
+          // Spatial distribution with safe clearance corridor & smooth depth distribution
+          var rSpread = 32 + Math.pow(Math.random(), 1.4) * 360;
           var angle = Math.random() * Math.PI * 2;
-          var zPos = isInitial ? (-Math.random() * 2200 - 180) : (-2200 - Math.random() * 600);
+          var zPos = isInitial ? (-(100 + Math.pow(Math.random(), 1.25) * 2100)) : (-(150 + Math.pow(Math.random(), 1.25) * 1600));
 
           starGroup.position.set(
             Math.cos(angle) * rSpread,
@@ -1730,10 +2709,15 @@
           );
 
           return {
+            name: starName,
+            spectralClass: spectralClass,
+            planetsCount: planetsCount,
             group: starGroup,
             coreMesh: coreMesh,
             coronaMesh: coronaMesh,
             haloMesh: haloMesh,
+            glintSprite: glintSprite,
+            streakSprite: streakSprite,
             trailMesh: trailMesh,
             trailPositions: trailPositions,
             radius: radius,
@@ -1744,11 +2728,163 @@
         }
 
         // ==============================================================
+        // Hyperspace Nebulae & Gas Cloud Obstacle System
+        // ==============================================================
+        var NEBULA_PALETTES = [
+          {
+            type: 'ice',
+            name: 'Cryogenic Ice Nebula',
+            color: 0x38bdf8,
+            secondary: 0x0284c7,
+            coolsCore: true,
+            slowdownRate: 2.8,  // Really slows you down
+            coolingRate: 7.5    // Cooled core rate (%/sec)
+          },
+          {
+            type: 'ice',
+            name: 'Glacial Ion Cloud',
+            color: 0x06b6d4,
+            secondary: 0x0369a1,
+            coolsCore: true,
+            slowdownRate: 2.5,  // Really slows you down
+            coolingRate: 7.0
+          },
+          {
+            type: 'thermal',
+            name: 'Superheated Plasma Nebula',
+            color: 0xef4444,
+            secondary: 0x991b1b,
+            overheatsCore: true,
+            slowdownRate: 1.2,  // Slows down a little, but not as much as the blue
+            heatingRate: 15.0   // Overheats really quickly (%/sec)
+          },
+          {
+            type: 'thermal',
+            name: 'Thermonuclear Cloud',
+            color: 0xf97316,
+            secondary: 0xc2410c,
+            overheatsCore: true,
+            slowdownRate: 1.1,  // Slows down a little, not as much as blue
+            heatingRate: 14.0
+          }
+        ];
+
+        function createNebulaPuffTexture() {
+          var c = document.createElement('canvas');
+          c.width = 128;
+          c.height = 128;
+          var ctx = c.getContext('2d');
+
+          // Soft, moody, non-blinding radial gradient
+          var grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+          grad.addColorStop(0.0, 'rgba(255, 255, 255, 0.45)');
+          grad.addColorStop(0.25, 'rgba(220, 230, 255, 0.28)');
+          grad.addColorStop(0.55, 'rgba(170, 195, 255, 0.12)');
+          grad.addColorStop(0.85, 'rgba(120, 160, 255, 0.03)');
+          grad.addColorStop(1.0, 'rgba(0, 0, 0, 0.0)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(64, 64, 64, 0, Math.PI * 2);
+          ctx.fill();
+
+          var lobes = [
+            { x: 48, y: 52, r: 42, a: 0.22 },
+            { x: 78, y: 50, r: 38, a: 0.20 },
+            { x: 56, y: 78, r: 36, a: 0.18 },
+            { x: 72, y: 74, r: 40, a: 0.20 }
+          ];
+          for (var i = 0; i < lobes.length; i++) {
+            var lb = lobes[i];
+            var lGrad = ctx.createRadialGradient(lb.x, lb.y, 0, lb.x, lb.y, lb.r);
+            lGrad.addColorStop(0.0, 'rgba(255, 255, 255, ' + lb.a + ')');
+            lGrad.addColorStop(1.0, 'rgba(255, 255, 255, 0.0)');
+            ctx.fillStyle = lGrad;
+            ctx.beginPath();
+            ctx.arc(lb.x, lb.y, lb.r, 0, Math.PI * 2);
+            ctx.fill();
+          }
+
+          var tex = new THREE.CanvasTexture(c);
+          return tex;
+        }
+
+        function initHyperspaceNebulae() {
+          if (!nebulaPuffTexture) {
+            nebulaPuffTexture = createNebulaPuffTexture();
+          }
+          hyperspaceNebulaGroup = new THREE.Group();
+          hyperspaceGroup.add(hyperspaceNebulaGroup);
+          hyperspaceNebulae = [];
+
+          // Fewer, more spaced out cosmic nebulae (8 clouds instead of 20)
+          var count = 8;
+          for (var i = 0; i < count; i++) {
+            var neb = createHyperspaceNebula(true);
+            hyperspaceNebulaGroup.add(neb.group);
+            hyperspaceNebulae.push(neb);
+          }
+        }
+
+        function createHyperspaceNebula(isInitial) {
+          var pal = NEBULA_PALETTES[Math.floor(Math.random() * NEBULA_PALETTES.length)];
+          var nebRadius = 36.0 + Math.random() * 26.0; // Collision/obstacle radius 36 to 62 units
+          var group = new THREE.Group();
+
+          // Spatial distribution: spaced out along the flight corridor with generous clearing lanes
+          var rSpread = 30 + Math.pow(Math.random(), 1.4) * 300;
+          var angle = Math.random() * Math.PI * 2;
+          var zDist = isInitial ? (-320 - Math.random() * 3200) : (-2600 - Math.random() * 1400);
+
+          group.position.set(
+            Math.cos(angle) * rSpread,
+            Math.sin(angle) * rSpread,
+            zDist
+          );
+
+          // Clustered billowy cloud puff sprites with soft, subdued luminosity
+          var puffCount = 4 + Math.floor(Math.random() * 3);
+          var sprites = [];
+          for (var s = 0; s < puffCount; s++) {
+            var sMat = new THREE.SpriteMaterial({
+              map: nebulaPuffTexture,
+              color: Math.random() > 0.4 ? pal.color : pal.secondary,
+              transparent: true,
+              opacity: 0.14 + Math.random() * 0.10, // Subdued, atmospheric luminosity
+              blending: THREE.AdditiveBlending,
+              depthWrite: false
+            });
+            var sp = new THREE.Sprite(sMat);
+            var spScale = nebRadius * (1.6 + Math.random() * 1.2);
+            sp.scale.set(spScale, spScale, 1.0);
+            sp.position.set(
+              (Math.random() - 0.5) * nebRadius * 1.2,
+              (Math.random() - 0.5) * nebRadius * 1.0,
+              (Math.random() - 0.5) * nebRadius * 1.2
+            );
+            group.add(sp);
+            sprites.push({
+              sprite: sp,
+              rotSpeed: (Math.random() - 0.5) * 0.06
+            });
+          }
+
+          return {
+            group: group,
+            radius: nebRadius,
+            palette: pal,
+            type: pal.type,
+            name: pal.name,
+            sprites: sprites,
+            spinSpeed: (Math.random() - 0.5) * 0.03
+          };
+        }
+
+        // ==============================================================
         // Solar System State: Close-up Exploration
         // ==============================================================
         function enterSolarSystem(starSource) {
           STATE.mode = MODE_SOLAR;
-          overlayHint.textContent = 'Mouse: Joystick · W/S: Speed · A/D: Strafe · Q/E: Roll · Space: Hyperspace';
+          overlayHint.textContent = 'WASD: Flight (Hold W: 3x Boost · S: Brake) · Mouse: Joystick · Q/E: Roll · Space: Hyperspace';
           overlayHint.style.opacity = '0.45';
           starLockIndicator.style.opacity = '0';
 
@@ -1760,6 +2896,15 @@
           STATE.warpChargeProgress = 0.0;
           STATE.spaceHeld = false;
           updateWarpChargeUI(0.0, false);
+          
+          // Preserve accumulated core heat and keep meter visible to display cooling
+          if (warpCoreHud) warpCoreHud.style.opacity = '1';
+          updateWarpCoreUI(STATE.warpCoreTemp, false, false, MODE_SOLAR);
+
+          // Hide hyperspace star scanner HUD and guidance
+          if (starScanReticle) starScanReticle.style.opacity = '0';
+          if (starScannerCard) starScannerCard.style.opacity = '0';
+          if (missionGuidanceBanner) missionGuidanceBanner.style.opacity = '0';
 
           camera.fov = 72;
           camera.updateProjectionMatrix();
@@ -1786,18 +2931,21 @@
           }
 
           var stellarData = starSource ? starSource.stellarData : STELLAR_PALETTES[Math.floor(Math.random() * STELLAR_PALETTES.length)];
-          var starRadius = starSource ? Math.max(starSource.radius * 4.8, 36.0) : 38.0;
+          // Grand, imposing central star scaled 10x (radius 14,000 to 14,500)
+          var starRadius = starSource ? Math.max(starSource.radius * 1800.0, 14000.0) : 14500.0;
 
           buildProceduralSolarSystem(stellarData, starRadius);
 
-          // Place ship in a dramatic viewing approach position overlooking the star and planetary orbits
-          shipGroup.position.set(0, 28, 250);
+          // Place ship in a dramatic viewing approach position overlooking the star and planetary orbits (scaled 10x, dropped out 2x further)
+          shipGroup.position.set(0, 9000, 76000);
           shipGroup.rotation.set(0, 0, 0);
           shipGroup.quaternion.set(0, 0, 0, 1);
-          shipVelocity.set(0, 0, -CONFIG.solarCruiseSpeed * 0.75);
+          shipGroup.scale.set(1, 1, 1);
+          STATE.solarSpeed = CONFIG.solarCruiseSpeed;
+          shipVelocity.set(0, 0, -CONFIG.solarCruiseSpeed);
 
-          camera.position.set(0, 34, 265);
-          camLookTarget.set(0, 16, 0);
+          camera.position.set(0, 9600, 77700);
+          camLookTarget.set(0, 2400, 0);
           camera.lookAt(camLookTarget);
         }
 
@@ -1975,6 +3123,109 @@
           return new THREE.CanvasTexture(c);
         }
 
+        // ==============================================================
+        // Procedural Swirly Solar Plasma Surface Texture Generator
+        // Generates dynamic convective granulation cells, differential rotation swirls,
+        // magnetic filaments, and solar prominence active regions
+        // ==============================================================
+        function createSwirlySolarTexture(stellarData) {
+          var c = document.createElement('canvas');
+          c.width = 1024;
+          c.height = 512;
+          var ctx = c.getContext('2d');
+
+          var colCore = new THREE.Color(stellarData.core || 0xffffff);
+          var colMain = new THREE.Color(stellarData.color || 0xffaa22);
+          var colCorona = new THREE.Color(stellarData.corona || 0xff5500);
+
+          var imgData = ctx.createImageData(1024, 512);
+          var data = imgData.data;
+
+          var w = 1024;
+          var h = 512;
+
+          for (var y = 0; y < h; y++) {
+            var v = y / h; // Latitude [0, 1]
+            var latAngle = (v - 0.5) * Math.PI; // [-pi/2, pi/2]
+            var cosLat = Math.cos(latAngle);
+
+            // Equatorial differential rotation shear
+            var diffShear = cosLat * 2.8;
+
+            for (var x = 0; x < w; x++) {
+              var u = x / w; // Longitude [0, 1]
+              var theta = u * Math.PI * 2.0 + diffShear;
+
+              // Multi-scale swirling convective turbulence
+              var s1 = Math.sin(theta * 7.0 + Math.sin(v * 15.0) * 2.4);
+              var c1 = Math.cos(v * 13.0 + Math.cos(theta * 9.0) * 1.9);
+              var s2 = Math.sin(theta * 18.0 + c1 * 3.2 + s1 * 1.6);
+              var c2 = Math.cos(v * 26.0 + s1 * 2.6);
+              var s3 = Math.sin((theta * 34.0 + v * 30.0) + s2 * 2.0);
+
+              // Convective granulation noise (bubbling plasma cells)
+              var gran = (Math.sin(theta * 75.0) * Math.cos(v * 65.0) + Math.sin(theta * 110.0 + v * 95.0) * 0.5) * 0.5 + 0.5;
+
+              // Swirling vortex blend
+              var plasmaVal = 0.5 + 0.26 * s1 + 0.17 * c1 + 0.15 * s2 + 0.08 * c2 + 0.06 * s3 + 0.10 * (gran - 0.5);
+              plasmaVal = Math.max(0.0, Math.min(1.0, plasmaVal));
+
+              // Active latitude sunspot active regions (around +/- 22 degrees latitude)
+              var spotLat = Math.abs(latAngle) - 0.40;
+              var spotFactor = 1.0;
+              if (Math.abs(spotLat) < 0.16) {
+                var spotNoise = Math.sin(theta * 8.0) * Math.cos(v * 20.0);
+                if (spotNoise > 0.80) {
+                  var spotDepth = (spotNoise - 0.80) / 0.20;
+                  spotFactor = 1.0 - Math.pow(spotDepth, 0.75) * 0.75;
+                }
+              }
+
+              // Bright coronal loop / magnetic prominence ridges
+              var ridge = Math.pow(Math.max(0.0, plasmaVal - 0.60) / 0.40, 2.0);
+
+              // Color gradient: deep turbulent magnetic lanes -> vibrant plasma -> blinding core
+              var r, g, b;
+              if (plasmaVal < 0.42) {
+                var t = plasmaVal / 0.42;
+                r = colCorona.r * 0.75 * (1 - t) + colMain.r * t;
+                g = colCorona.g * 0.75 * (1 - t) + colMain.g * t;
+                b = colCorona.b * 0.75 * (1 - t) + colMain.b * t;
+              } else {
+                var t = (plasmaVal - 0.42) / 0.58;
+                r = colMain.r * (1 - t) + colCore.r * t;
+                g = colMain.r * (1 - t) + colCore.g * t;
+                b = colMain.b * (1 - t) + colCore.b * t;
+              }
+
+              r = Math.min(1.0, r * spotFactor + ridge * 0.55);
+              g = Math.min(1.0, g * spotFactor + ridge * 0.55);
+              b = Math.min(1.0, b * spotFactor + ridge * 0.55);
+
+              var idx = (y * w + x) * 4;
+              data[idx + 0] = Math.round(r * 255);
+              data[idx + 1] = Math.round(g * 255);
+              data[idx + 2] = Math.round(b * 255);
+              data[idx + 3] = 255;
+            }
+          }
+
+          ctx.putImageData(imgData, 0, 0);
+
+          // Subtle limb darkening and equatorial glow overlay
+          var grad = ctx.createLinearGradient(0, 0, 0, h);
+          grad.addColorStop(0.0, 'rgba(0, 0, 0, 0.20)');
+          grad.addColorStop(0.5, 'rgba(255, 255, 255, 0.09)');
+          grad.addColorStop(1.0, 'rgba(0, 0, 0, 0.20)');
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, w, h);
+
+          var tex = new THREE.CanvasTexture(c);
+          tex.wrapS = THREE.RepeatWrapping;
+          tex.wrapT = THREE.ClampToEdgeWrapping;
+          return tex;
+        }
+
         function buildProceduralSolarSystem(stellarData, starRadius) {
           if (solarGroup) {
             scene.remove(solarGroup);
@@ -2005,18 +3256,25 @@
             starRadius: starRadius
           };
 
-          // Central Glowing Star - grand, imposing, luminous, with multi-stage corona & dynamic flares
-          var starGeo = new THREE.SphereGeometry(starRadius, 48, 48);
-          var starMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+          // Generate dynamic swirly solar texture
+          var solarTex = createSwirlySolarTexture(stellarData);
+
+          // Central Glowing Star - grand, imposing, 10x larger, with swirly dynamic solar texture
+          var starGeo = new THREE.SphereGeometry(starRadius, 64, 64);
+          var starMat = new THREE.MeshBasicMaterial({
+            map: solarTex,
+            color: 0xffffff
+          });
           var centralStarMesh = new THREE.Mesh(starGeo, starMat);
           solarGroup.add(centralStarMesh);
 
-          // Pulsating inner chromosphere shell
-          var chromoGeo = new THREE.SphereGeometry(starRadius * 1.07, 36, 36);
+          // Pulsating inner chromosphere shell with swirling solar texture and additive blending
+          var chromoGeo = new THREE.SphereGeometry(starRadius * 1.05, 48, 48);
           var chromoMat = new THREE.MeshBasicMaterial({
+            map: solarTex,
             color: stellarData.color,
             transparent: true,
-            opacity: 0.65,
+            opacity: 0.60,
             blending: THREE.AdditiveBlending,
             side: THREE.BackSide
           });
@@ -2024,80 +3282,80 @@
           solarGroup.add(chromoMesh);
 
           // Atmospheric transition shell
-          var haloGeo = new THREE.SphereGeometry(starRadius * 1.25, 36, 36);
+          var haloGeo = new THREE.SphereGeometry(starRadius * 1.18, 36, 36);
           var haloMat = new THREE.MeshBasicMaterial({
             color: stellarData.corona,
             transparent: true,
-            opacity: 0.35,
+            opacity: 0.32,
             blending: THREE.AdditiveBlending,
             side: THREE.BackSide
           });
           var haloMesh = new THREE.Mesh(haloGeo, haloMat);
           solarGroup.add(haloMesh);
 
-          // 1. Core Corona Flare Sprite (High intensity radial falloff)
+          // 1. Core Corona Flare Sprite (Pronounced, grand solar corona)
           var coronaTex = createStarCoronaTexture(stellarData.core, stellarData.color);
           var coronaSpriteMat = new THREE.SpriteMaterial({
             map: coronaTex,
             blending: THREE.AdditiveBlending,
             depthWrite: false,
             transparent: true,
-            opacity: 0.95
+            opacity: 0.92
           });
           var coronaSprite = new THREE.Sprite(coronaSpriteMat);
-          coronaSprite.scale.set(starRadius * 4.6, starRadius * 4.6, 1.0);
+          coronaSprite.scale.set(starRadius * 4.2, starRadius * 4.2, 1.0);
           solarGroup.add(coronaSprite);
 
-          // 2. Vast Radiant Stellar Aura Sprite (Sweeps through the inner solar system)
+          // 2. Vast Radiant Stellar Aura Sprite (Luminous deep outer aura)
           var auraTex = createVastAuraTexture(stellarData.corona);
           var auraSpriteMat = new THREE.SpriteMaterial({
             map: auraTex,
             blending: THREE.AdditiveBlending,
             depthWrite: false,
             transparent: true,
-            opacity: 0.72
+            opacity: 0.40
           });
           var auraSprite = new THREE.Sprite(auraSpriteMat);
-          auraSprite.scale.set(starRadius * 14.0, starRadius * 14.0, 1.0);
+          auraSprite.scale.set(starRadius * 7.5, starRadius * 7.5, 1.0);
           solarGroup.add(auraSprite);
 
-          // 3. Cinematic Anamorphic Flare Streak (Expands and blinds when looking toward the star)
+          // 3. Cinematic Anamorphic Flare Streak (Vast, pronounced horizontal flare streak)
           var streakTex = createAnamorphicFlareTexture(stellarData.color);
           var streakSpriteMat = new THREE.SpriteMaterial({
             map: streakTex,
             blending: THREE.AdditiveBlending,
             depthWrite: false,
             transparent: true,
-            opacity: 0.22
+            opacity: 0.20
           });
           var streakSprite = new THREE.Sprite(streakSpriteMat);
-          streakSprite.scale.set(starRadius * 26.0, starRadius * 2.2, 1.0);
+          streakSprite.scale.set(starRadius * 11.0, starRadius * 1.1, 1.0);
           solarGroup.add(streakSprite);
 
-          // 4. Razor-Sharp Diffraction Starburst Spikes (Dynamic celestial spikes)
+          // 4. Razor-Sharp Diffraction Starburst Spikes (Substantial celestial starburst)
           var spikesTex = createDiffractionSpikesTexture(stellarData.color);
           var spikesSpriteMat = new THREE.SpriteMaterial({
             map: spikesTex,
             blending: THREE.AdditiveBlending,
             depthWrite: false,
             transparent: true,
-            opacity: 0.18
+            opacity: 0.25
           });
           var spikesSprite = new THREE.Sprite(spikesSpriteMat);
-          spikesSprite.scale.set(starRadius * 14.0, starRadius * 14.0, 1.0);
+          spikesSprite.scale.set(starRadius * 6.0, starRadius * 6.0, 1.0);
           solarGroup.add(spikesSprite);
 
-          // 5. Blinding Solar Glare Halo (Full-view ocular flare)
+          // 5. Solar Glare Halo (Grand blinding ocular glare)
           var glareTex = createBlindingSolarGlareTexture(stellarData.corona);
           var glareSpriteMat = new THREE.SpriteMaterial({
             map: glareTex,
             blending: THREE.AdditiveBlending,
             depthWrite: false,
             transparent: true,
-            opacity: 0.0
+            opacity: 0.15
           });
           var glareSprite = new THREE.Sprite(glareSpriteMat);
-          glareSprite.scale.set(starRadius * 15.0, starRadius * 15.0, 1.0);
+          glareSprite.scale.set(starRadius * 5.0, starRadius * 5.0, 1.0);
           solarGroup.add(glareSprite);
 
           currentSolarFlare = {
@@ -2112,18 +3370,20 @@
             lookFactor: 0.0
           };
 
-          // Central Star point light with zero distance decay (ensures all planets across system are clearly lit)
-          var starLight = new THREE.PointLight(stellarData.light, 1.7, 5000, 0);
+          // Central Star point light with zero distance decay (ensures all planets across 10x expanded system are clearly lit)
+          var starLight = new THREE.PointLight(stellarData.light, 2.2, 1500000, 0);
           solarGroup.add(starLight);
 
-          // Orbiting Planets - Structured Orbital Hierarchy:
-          // Inner orbits: mostly smaller rocky planets (some with atmospheres & clouds)
-          // Outer orbits: mostly larger gas giants (with banded storms, rings & moons)
+          // Dedicated group for planetary orbit rings & boundary lines so they can easily be toggled in planet mode
+          orbitLinesGroup = new THREE.Group();
+          solarGroup.add(orbitLinesGroup);
+
+          // Orbiting Planets - Structured Orbital Hierarchy (scaled 10x in orbital radii & planetary dimensions):
           var planetCount = 4 + (Math.random() > 0.35 ? 1 : 0); // 4 to 5 planets
-          var baseDistances = [160, 310, 500, 720, 920];
+          var baseDistances = [55000, 102000, 165000, 235000, 310000];
 
           for (var p = 0; p < planetCount; p++) {
-            var dist = baseDistances[p] + (Math.random() * 20 - 10);
+            var dist = baseDistances[p] + (Math.random() * 6000 - 3000);
 
             // Distribution: mostly rocky on inner orbits, mostly gas giant on outer orbits
             var isRocky;
@@ -2146,10 +3406,11 @@
             var moonSpeed = 0;
             var planetType = 'terrestrial';
             var atmoColor = 0x48cae4;
+            var planetSeed = Math.random() * 1000;
 
             if (isRocky) {
-              // Smaller rocky planets (radius 6.5 to 11.5)
-              pRadius = 6.5 + Math.random() * 4.5;
+              // 10x Scaled Rocky planets for grand planetary horizons (radius 1500 to 2150)
+              pRadius = 1500.0 + Math.random() * 650.0;
 
               var rockySubTypes = ['terrestrial', 'desert', 'barren', 'volcanic', 'frozen'];
               var subTypeWeight = [0.36, 0.26, 0.18, 0.12, 0.08];
@@ -2175,35 +3436,40 @@
               atmoColor = atmoColors[subType] || 0x70d6ff;
 
               pTexture = createRockyPlanetTexture(subType);
-              pGeo = new THREE.SphereGeometry(pRadius, 48, 48);
-              // Zero specularity, pure diffuse Lambertian material: eliminates glare so surface details shine
+              // Subdivided sphere for low-poly procedural terrain mountains & valleys
+              pGeo = new THREE.SphereGeometry(pRadius, 72, 48);
+              applyProceduralTerrain(pGeo, pRadius, subType, planetSeed);
+
+              // Distinctive faceted low-poly material with elevation vertex colors & texture map
               pMat = new THREE.MeshLambertMaterial({
-                map: pTexture
+                map: pTexture,
+                vertexColors: true,
+                flatShading: true
               });
               pMesh = new THREE.Mesh(pGeo, pMat);
 
               // Atmospheres: terrestrial always has atmosphere; others have high probability
               var hasAtmosphere = (subType === 'terrestrial') || (Math.random() < 0.65 && subType !== 'barren');
               if (hasAtmosphere) {
-                var atmoGeo = new THREE.SphereGeometry(pRadius * 1.045, 36, 36);
+                var atmoGeo = new THREE.SphereGeometry(pRadius * 1.16, 36, 36);
                 var atmoMat = new THREE.MeshBasicMaterial({
                   color: atmoColor,
                   transparent: true,
-                  opacity: 0.28,
+                  opacity: 0.24,
                   blending: THREE.AdditiveBlending,
                   side: THREE.BackSide
                 });
                 atmoMesh = new THREE.Mesh(atmoGeo, atmoMat);
                 pMesh.add(atmoMesh);
 
-                // Rotating Cloud Layer for terrestrial worlds
+                // Rotating Cloud Layer for terrestrial worlds hovering above mountain summits
                 if (subType === 'terrestrial') {
-                  var cloudGeo = new THREE.SphereGeometry(pRadius * 1.018, 40, 40);
+                  var cloudGeo = new THREE.SphereGeometry(pRadius * 1.09, 40, 40);
                   var cloudTex = createCloudTexture();
                   var cloudMat = new THREE.MeshStandardMaterial({
                     map: cloudTex,
                     transparent: true,
-                    opacity: 0.75,
+                    opacity: 0.70,
                     roughness: 0.9,
                     metalness: 0.0,
                     depthWrite: false
@@ -2213,8 +3479,8 @@
                 }
               }
             } else {
-              // Larger gas giants on outer orbits (radius 19.5 to 29.5)
-              pRadius = 19.5 + Math.random() * 9.5;
+              // 10x Scaled Majestic large gas giants on outer orbits (radius 3200 to 4300)
+              pRadius = 3200.0 + Math.random() * 1100.0;
               var gasTypes = ['jovian', 'saturnian', 'neptunian', 'exotic'];
               var gasType = gasTypes[Math.floor(Math.random() * gasTypes.length)];
               planetType = gasType;
@@ -2228,12 +3494,40 @@
 
               pTexture = createGasGiantTexture(gasType);
 
-              pGeo = new THREE.SphereGeometry(pRadius, 48, 48);
-              // Zero specularity, pure diffuse Lambertian material for gas giants
+              pGeo = new THREE.SphereGeometry(pRadius, 56, 44);
               pMat = new THREE.MeshLambertMaterial({
-                map: pTexture
+                map: pTexture,
+                transparent: true,
+                opacity: 1.0
               });
               pMesh = new THREE.Mesh(pGeo, pMat);
+
+              // Concentric inner cloud strata visible when penetrating into the atmosphere
+              var innerClouds = [];
+              var cloudLayers = [
+                { ratio: 0.985, opacity: 0.72, spin: 0.0006 },
+                { ratio: 0.86,  opacity: 0.62, spin: -0.0008 },
+                { ratio: 0.72,  opacity: 0.55, spin: 0.0010 },
+                { ratio: 0.56,  opacity: 0.48, spin: -0.0012 }
+              ];
+              for (var cl = 0; cl < cloudLayers.length; cl++) {
+                var cData = cloudLayers[cl];
+                var innerGeo = new THREE.SphereGeometry(pRadius * cData.ratio, 44, 32);
+                var innerTex = createGasGiantTexture(gasType);
+                var innerMat = new THREE.MeshLambertMaterial({
+                  map: innerTex,
+                  transparent: true,
+                  opacity: cData.opacity,
+                  side: THREE.DoubleSide,
+                  depthWrite: false
+                });
+                var innerMesh = new THREE.Mesh(innerGeo, innerMat);
+                pMesh.add(innerMesh);
+                innerClouds.push({
+                  mesh: innerMesh,
+                  spin: cData.spin
+                });
+              }
 
               // Rings (75% chance for gas giants)
               if (Math.random() < 0.75) {
@@ -2266,7 +3560,7 @@
                 });
                 moonMesh = new THREE.Mesh(moonGeo, moonMat);
                 moonDist = pRadius * (2.8 + Math.random() * 1.2);
-                moonSpeed = 0.06 + Math.random() * 0.05;
+                moonSpeed = 0.003 + Math.random() * 0.002;
                 moonMesh.position.set(moonDist, 0, 0);
                 pMesh.add(moonMesh);
               }
@@ -2295,27 +3589,31 @@
               blending: THREE.AdditiveBlending
             });
             var orbitLine = new THREE.Line(orbitGeo, orbitMat);
-            solarGroup.add(orbitLine);
+            orbitLinesGroup.add(orbitLine);
 
-            // Keplerian orbital speed: angular speed omega = k / (dist * sqrt(dist))
-            var kKepler = 85.0;
+            // Keplerian orbital speed slowed 10x so planets never need to be chased down (peaceful, majestic orbit)
+            var kKepler = 1200.0;
             var orbitSpeed = (kKepler / (dist * Math.sqrt(dist))) * (Math.random() > 0.08 ? 1 : -1);
 
             orbitingPlanets.push({
               index: p,
               name: (isRocky ? 'Rocky Planet ' : 'Gas Giant ') + (p + 1),
               isRocky: isRocky,
+              isGasGiant: !isRocky,
               subType: planetType,
+              terrainType: isRocky ? planetType : null,
               radius: pRadius,
+              seed: planetSeed,
               atmoColor: atmoColor,
               pivot: orbitPivot,
               mesh: pMesh,
               dist: dist,
               angle: startTheta,
               speed: orbitSpeed,
-              spinSpeed: ((isRocky ? 0.005 : 0.003) + Math.random() * 0.005) * 0.1,
+              spinSpeed: ((isRocky ? 0.002 : 0.001) + Math.random() * 0.002) * 0.03,
               clouds: cloudMesh,
-              cloudSpinSpeed: (0.004 + Math.random() * 0.003) * 0.1,
+              cloudSpinSpeed: (0.002 + Math.random() * 0.001) * 0.03,
+              innerClouds: !isRocky ? innerClouds : null,
               moon: moonMesh,
               moonDist: moonDist,
               moonSpeed: moonSpeed,
@@ -2342,7 +3640,7 @@
             blending: THREE.AdditiveBlending
           });
           boundaryRing = new THREE.Line(boundGeo, boundMat);
-          solarGroup.add(boundaryRing);
+          orbitLinesGroup.add(boundaryRing);
 
           scene.add(solarGroup);
         }
@@ -2357,11 +3655,14 @@
           STATE.warpChargeProgress = 0.0;
           STATE.spaceHeld = false;
           updateWarpChargeUI(0.0, false);
+          // Preserve remaining temperature status upon re-entering hyperspace
+          updateWarpCoreUI(STATE.warpCoreTemp, false, false, MODE_HYPERSPACE);
 
-          overlayHint.textContent = 'Approach Star or Hold Space (2s): Warp to System · WASD: Flight · Mouse: Joystick';
+          overlayHint.textContent = 'Hold W: Spool Warp Boost · Approach Star or Hold Space: Warp to System · WASD / Mouse: Flight';
           overlayHint.style.opacity = '0.35';
           boundaryWarning.style.opacity = '0';
           starLockIndicator.style.opacity = '0';
+          if (gravityWellBanner) gravityWellBanner.style.opacity = '0';
 
           triggerHyperspaceTransition('enter');
 
@@ -2381,6 +3682,9 @@
           // Hide solar system
           if (solarGroup) {
             solarGroup.visible = false;
+          }
+          if (orbitLinesGroup) {
+            orbitLinesGroup.visible = true;
           }
 
           if (bloomPass) {
@@ -2424,6 +3728,19 @@
             st.trailMesh.geometry.attributes.position.needsUpdate = true;
           }
 
+          // Re-scatter hyperspace ion nebulae & gas clouds along flight corridor
+          for (var n = 0; n < hyperspaceNebulae.length; n++) {
+            var neb = hyperspaceNebulae[n];
+            var rSpreadNeb = 20 + Math.pow(Math.random(), 1.3) * 230;
+            var angleNeb = Math.random() * Math.PI * 2;
+            var zDistNeb = -220 - Math.random() * 2400;
+            neb.group.position.set(
+              Math.cos(angleNeb) * rSpreadNeb,
+              Math.sin(angleNeb) * rSpreadNeb,
+              zDistNeb
+            );
+          }
+
           // Reset background starfield to 3D spherical volume around origin
           if (bgStarfieldPoints && bgStarPositions) {
             bgStarfieldPoints.position.set(0, 0, 0);
@@ -2444,6 +3761,14 @@
           STATE.activePlanet = null;
           STATE.isLanded = false;
           STATE.isExploding = false;
+          STATE.planetEntryAlignTimer = 0;
+          if (gasCloudPuffGroup) {
+            gasCloudPuffGroup.visible = false;
+          }
+          if (gasLightningFlash) {
+            gasLightningFlash.intensity = 0;
+          }
+          scene.background.setHex(0x010103);
           if (landingPrompt) landingPrompt.style.opacity = '0';
           if (gasWarningBanner) gasWarningBanner.style.opacity = '0';
           if (planetaryTelemetry) planetaryTelemetry.style.opacity = '0';
@@ -2460,30 +3785,83 @@
           STATE.isLanded = false;
           STATE.isExploding = false;
 
-          triggerHyperspaceTransition('exit');
+          // Track planet world position for gravitational reference frame
+          planet.mesh.getWorldPosition(STATE.lastPlanetPos);
 
-          // Slow down velocity to responsive atmospheric speed
-          shipVelocity.clampLength(0, CONFIG.planetCruiseSpeed);
+          // Smooth aerodynamic entry alignment timer: over 1.8 seconds, the craft smoothly
+          // aligns its nose toward the planet center, eliminating any 'snap' from oblique approaches!
+          STATE.planetEntryAlignTimer = 1.8;
+          shipGroup.quaternion.normalize();
+          shipGroup.scale.set(1, 1, 1);
 
-          // Calibrated atmospheric haze
+          // Hide planetary orbit lines and boundary ring in planet mode for pure atmospheric landscape immersion
+          if (orbitLinesGroup) {
+            orbitLinesGroup.visible = false;
+          }
+          if (warpCoreHud) {
+            warpCoreHud.style.opacity = '1';
+          }
+          updateWarpCoreUI(STATE.warpCoreTemp, false, false, MODE_PLANET);
+
+          // 1. Visceral camera shake from entering the planetary gravity well
+          STATE.shakeIntensity = 2.8;
+
+          // 2. Camera FOV punch that dynamically settles
+          camera.fov = 86;
+          camera.updateProjectionMatrix();
+
+          // 3. Shockwave flaring from the bow of the ship
+          triggerBowShockwave();
+
+          // 4. Ionization atmosphere entry screen flash
+          if (hyperspaceFlash) {
+            hyperspaceFlash.style.transition = 'none';
+            hyperspaceFlash.style.background = 'radial-gradient(circle, rgba(103, 232, 249, 0.65) 0%, rgba(2, 6, 23, 0.8) 100%)';
+            hyperspaceFlash.style.opacity = '0.75';
+            void hyperspaceFlash.offsetWidth; // Force reflow
+            hyperspaceFlash.style.transition = 'opacity 0.6s cubic-bezier(0.1, 0.85, 0.2, 1)';
+            hyperspaceFlash.style.opacity = '0';
+          }
+
+          // 5. Prominent Alert Banner: Gravity Well Detected Dropping From Cruise
+          if (gravityWellBanner) {
+            var planetLabel = (planet.name ? planet.name.toUpperCase() : 'ORBIT');
+            gravityWellBanner.innerHTML = '⚠ GRAVITY WELL DETECTED · DROPPING FROM CRUISE · ' + planetLabel + ' ⚠';
+            gravityWellBanner.style.opacity = '1';
+            setTimeout(function() {
+              if (gravityWellBanner && STATE.mode === MODE_PLANET) {
+                gravityWellBanner.style.opacity = '0';
+              }
+            }, 3500);
+          }
+
+          // Keep crystal-clear celestial vacuum on rocky worlds (no fog washing out textures or lighting!)
           if (planet.isRocky) {
-            scene.fog = new THREE.FogExp2(planet.atmoColor || 0x48cae4, 0.0035);
+            scene.fog = null;
           } else {
-            scene.fog = new THREE.FogExp2(planet.atmoColor || 0xd4a373, 0.008);
+            // Gas giants initialize ready for volumetric cloud strata
+            var fogColor = planet.atmoColor || 0xd4a373;
+            scene.fog = new THREE.FogExp2(fogColor, 0.00002);
+          }
+
+          if (planetaryTelemetry) {
+            planetaryTelemetry.style.opacity = '1';
+            if (telemPlanetName) telemPlanetName.textContent = planet.name.toUpperCase();
+            if (telemType) telemType.textContent = (planet.isRocky ? 'ROCKY ' : 'GAS GIANT · ') + planet.subType.toUpperCase();
           }
 
           if (overlayHint) {
             if (planet.isRocky) {
-              overlayHint.textContent = 'WASD: Flight · Mouse: Joystick · [F] Touchdown (Near Surface) · Fly Up to Leave';
+              overlayHint.textContent = 'WASD: Flight · Mouse: Joystick · [F] Touchdown (Near Surface) · Hold Space: Return to Solar Cruise';
             } else {
-              overlayHint.textContent = 'WASD: Flight · Mouse: Joystick · ⚠ WARNING: Gas giant has no surface · PULL UP to escape';
+              overlayHint.textContent = 'WASD: Flight · Mouse: Joystick · Hold Space: Return to Solar Cruise · ⚠ Gas Giant Deep Fog';
             }
             overlayHint.style.opacity = '0.55';
           }
 
           if (starLockIndicator) {
             starLockIndicator.style.opacity = '0.95';
-            starLockIndicator.textContent = 'ORBITAL ENTRY: ' + planet.name.toUpperCase() + ' (' + planet.subType.toUpperCase() + ')';
+            starLockIndicator.textContent = 'ATMOSPHERIC ENTRY: ' + planet.name.toUpperCase();
             setTimeout(function() {
               if (starLockIndicator && STATE.mode === MODE_PLANET) starLockIndicator.style.opacity = '0';
             }, 3000);
@@ -2493,18 +3871,51 @@
         function exitPlanetaryMode() {
           if (STATE.mode !== MODE_PLANET) return;
           STATE.mode = MODE_SOLAR;
+          var pl = STATE.activePlanet;
           STATE.activePlanet = null;
           STATE.isLanded = false;
+          STATE.planetEntryAlignTimer = 0;
 
-          // Clear atmospheric fog back to crystal celestial void
+          // Restore gas giant outer shell opacity if exiting from clouds
+          if (pl && pl.mesh && pl.mesh.material) {
+            pl.mesh.material.opacity = 1.0;
+          }
+          if (gasCloudPuffGroup) {
+            gasCloudPuffGroup.visible = false;
+          }
+          if (gasLightningFlash) {
+            gasLightningFlash.intensity = 0;
+          }
+
+          // Reset camera up smoothly using ship's orientation and ensure matrices are clean
+          var exitShipUp = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion);
+          camera.up.copy(exitShipUp);
+          shipGroup.quaternion.normalize();
+          shipGroup.scale.set(1, 1, 1);
+
+          // Maintain smooth solar cruise forward momentum
+          STATE.solarSpeed = Math.max(CONFIG.solarCruiseSpeed, STATE.planetSpeed * 2.0);
+          var shipFwd = new THREE.Vector3(0, 0, -1).applyQuaternion(shipGroup.quaternion);
+          shipVelocity.copy(shipFwd).multiplyScalar(STATE.solarSpeed);
+
+          // Restore planetary orbit lines and boundary ring when leaving planetary atmosphere
+          if (orbitLinesGroup) {
+            orbitLinesGroup.visible = true;
+          }
+
+          // Clear atmospheric fog back to crystal celestial void and restore deep space black
           scene.fog = null;
+          scene.background.setHex(0x010103);
 
           if (landingPrompt) landingPrompt.style.opacity = '0';
           if (gasWarningBanner) gasWarningBanner.style.opacity = '0';
+          if (gravityWellBanner) gravityWellBanner.style.opacity = '0';
           if (planetaryTelemetry) planetaryTelemetry.style.opacity = '0';
+          if (warpCoreHud) warpCoreHud.style.opacity = '1';
+          updateWarpCoreUI(STATE.warpCoreTemp, false, false, MODE_SOLAR);
 
           if (overlayHint) {
-            overlayHint.textContent = 'Mouse: Joystick · W/S: Speed · A/D: Strafe · Q/E: Roll · Space: Hyperspace';
+            overlayHint.textContent = 'Hold Space (2s): Warp to Hyperspace · WASD: Flight (Hold W: 5x Boost) · Mouse: Joystick · ESC: Pause';
             overlayHint.style.opacity = '0.45';
           }
 
@@ -2517,14 +3928,111 @@
           }
         }
 
+        function initiateTouchdown() {
+          var pl = STATE.activePlanet;
+          if (!pl || !pl.isRocky || STATE.isLanded || STATE.isExploding) return;
+
+          pl.mesh.updateMatrixWorld(true);
+
+          STATE.isLanded = true;
+          shipVelocity.set(0, 0, 0);
+
+          var plWorld = new THREE.Vector3();
+          pl.mesh.getWorldPosition(plWorld);
+          var relPos = shipGroup.position.clone().sub(plWorld);
+          var norm = relPos.clone().normalize();
+          var terrainH = getPlanetTerrainElevation(norm, pl.seed, pl.radius, pl.subType);
+          var landedRadius = pl.radius + terrainH + 0.85;
+
+          shipGroup.position.copy(plWorld).add(norm.clone().multiplyScalar(landedRadius));
+
+          // Align ship upright with planetary normal and facing current forward heading
+          var currentFwd = new THREE.Vector3(0, 0, -1).applyQuaternion(shipGroup.quaternion);
+          var tangentFwd = currentFwd.clone().sub(norm.clone().multiplyScalar(currentFwd.dot(norm))).normalize();
+          if (tangentFwd.lengthSq() < 0.01) {
+            var alt = Math.abs(norm.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0);
+            tangentFwd.crossVectors(alt, norm).normalize();
+          }
+          // Orthonormal right-handed basis (determinant = +1.0)
+          var tangentRight = new THREE.Vector3().crossVectors(tangentFwd, norm).normalize();
+          var rotMat = new THREE.Matrix4().makeBasis(tangentRight, norm, tangentFwd.clone().negate());
+          shipGroup.quaternion.setFromRotationMatrix(rotMat).normalize();
+          shipGroup.scale.set(1, 1, 1);
+
+          // Store local relative coordinates using WORLD quaternion of rotating planet mesh
+          pl.mesh.updateMatrixWorld(true);
+          STATE.landedLocalPos = pl.mesh.worldToLocal(shipGroup.position.clone());
+          var plWorldQuat = new THREE.Quaternion();
+          pl.mesh.getWorldQuaternion(plWorldQuat);
+          var invPlQuat = plWorldQuat.clone();
+          if (typeof invPlQuat.invert === 'function') {
+            invPlQuat.invert();
+          } else if (typeof invPlQuat.inverse === 'function') {
+            invPlQuat.copy(invPlQuat).inverse();
+          } else {
+            invPlQuat.conjugate().normalize();
+          }
+          STATE.landedLocalQuat = invPlQuat.multiply(shipGroup.quaternion).normalize();
+
+          STATE.shakeIntensity = 0.28;
+
+          if (landingPrompt) {
+            landingPrompt.style.opacity = '1';
+            landingPrompt.innerHTML = '<span class="land-key">[SPACE] / [W] / [F]</span> LAUNCH INTO FLIGHT · TOUCHDOWN SUCCESSFUL';
+          }
+
+          if (telemStatus) telemStatus.textContent = 'TOUCHDOWN · ENGINES IDLE';
+          if (telemDot) telemDot.style.background = '#4ade80';
+
+          if (overlayHint) {
+            overlayHint.textContent = '[SPACE] or [W]: Launch into flight · [ESC]: Pause';
+            overlayHint.style.opacity = '0.65';
+          }
+        }
+
+        function launchFromSurface() {
+          if (!STATE.isLanded) return;
+          STATE.isLanded = false;
+
+          var pl = STATE.activePlanet;
+          var liftNormal = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion);
+          if (pl) {
+            var plWorld = new THREE.Vector3();
+            pl.mesh.getWorldPosition(plWorld);
+            liftNormal = shipGroup.position.clone().sub(plWorld).normalize();
+          }
+
+          // Smoothly boost off the surface into the air without distortion
+          shipGroup.position.addScaledVector(liftNormal, 18.0);
+          shipGroup.scale.set(1, 1, 1);
+          shipGroup.quaternion.normalize();
+
+          STATE.planetSpeed = CONFIG.planetCruiseSpeed;
+          var currentFwd = new THREE.Vector3(0, 0, -1).applyQuaternion(shipGroup.quaternion);
+          shipVelocity.copy(currentFwd).multiplyScalar(CONFIG.planetCruiseSpeed).addScaledVector(liftNormal, CONFIG.planetLaunchSpeed);
+
+          STATE.shakeIntensity = 0.42;
+
+          if (landingPrompt) landingPrompt.style.opacity = '0';
+          if (telemStatus) telemStatus.textContent = 'LIFTOFF · ASCENDING';
+          if (telemDot) telemDot.style.background = '#38bdf8';
+
+          if (overlayHint) {
+            overlayHint.textContent = 'WASD: Flight · Mouse: Joystick · [F] Touchdown · Fly Up to Leave';
+            overlayHint.style.opacity = '0.55';
+          }
+        }
+
         function triggerGasGiantExplosion() {
           if (STATE.isExploding) return;
           STATE.isExploding = true;
           STATE.explosionTime = performance.now();
-          STATE.shakeIntensity = 3.2;
+          STATE.shakeIntensity = 3.6;
 
           if (gasWarningBanner) gasWarningBanner.style.opacity = '0';
           if (landingPrompt) landingPrompt.style.opacity = '0';
+          var sub = document.getElementById('explosionSub');
+          if (sub) sub.textContent = 'HULL CRUSHED BY SUPERCRITICAL ATMOSPHERIC PRESSURE · RESTARTING...';
           if (explosionOverlay) explosionOverlay.classList.add('active');
 
           // Create dramatic 3D explosion fireball
@@ -2566,8 +4074,120 @@
           }, 2600);
         }
 
+        function triggerStarExplosion() {
+          if (STATE.isExploding) return;
+          STATE.isExploding = true;
+          STATE.explosionTime = performance.now();
+          STATE.shakeIntensity = 4.8;
+
+          if (gasWarningBanner) gasWarningBanner.style.opacity = '0';
+          if (landingPrompt) landingPrompt.style.opacity = '0';
+          var sub = document.getElementById('explosionSub');
+          if (sub) sub.textContent = 'VESSEL VAPORIZED BY STELLAR SURFACE · SOLAR FLARE INCINERATION · RESTARTING...';
+          if (explosionOverlay) explosionOverlay.classList.add('active');
+
+          if (!explosionGroup) {
+            explosionGroup = new THREE.Group();
+            scene.add(explosionGroup);
+          }
+          explosionGroup.position.copy(shipGroup.position);
+          explosionGroup.scale.set(1, 1, 1);
+          explosionGroup.visible = true;
+
+          // Blinding incandescent stellar fireball
+          var fireGeo = new THREE.SphereGeometry(14.0, 24, 24);
+          var fireMat = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 1.0,
+            blending: THREE.AdditiveBlending
+          });
+          var fireMesh = new THREE.Mesh(fireGeo, fireMat);
+          explosionGroup.add(fireMesh);
+
+          var fireAuraGeo = new THREE.SphereGeometry(38.0, 24, 24);
+          var fireAuraMat = new THREE.MeshBasicMaterial({
+            color: 0xff7700,
+            transparent: true,
+            opacity: 0.90,
+            blending: THREE.AdditiveBlending
+          });
+          var fireAuraMesh = new THREE.Mesh(fireAuraGeo, fireAuraMat);
+          explosionGroup.add(fireAuraMesh);
+
+          shipGroup.visible = false;
+
+          setTimeout(function() {
+            restartSimulation();
+          }, 2600);
+        }
+
+        function triggerWarpCoreExplosion() {
+          if (STATE.isExploding) return;
+          STATE.isExploding = true;
+          STATE.explosionTime = performance.now();
+          STATE.shakeIntensity = 4.6;
+
+          if (gasWarningBanner) gasWarningBanner.style.opacity = '0';
+          if (gravityWellBanner) gravityWellBanner.style.opacity = '0';
+          if (landingPrompt) landingPrompt.style.opacity = '0';
+          if (starLockIndicator) starLockIndicator.style.opacity = '0';
+          if (warpCoreHud) warpCoreHud.style.opacity = '0';
+
+          var sub = document.getElementById('explosionSub');
+          if (sub) sub.textContent = 'CATASTROPHIC WARP CORE BREACH · CRITICAL THERMAL OVERLOAD · RESTARTING...';
+          if (explosionOverlay) explosionOverlay.classList.add('active');
+
+          if (!explosionGroup) {
+            explosionGroup = new THREE.Group();
+            scene.add(explosionGroup);
+          }
+          explosionGroup.position.copy(shipGroup.position);
+          explosionGroup.scale.set(1, 1, 1);
+          explosionGroup.visible = true;
+
+          // Blinding antimatter core rupture fireball
+          var fireGeo = new THREE.SphereGeometry(7.0, 24, 24);
+          var fireMat = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 1.0,
+            blending: THREE.AdditiveBlending
+          });
+          var fireMesh = new THREE.Mesh(fireGeo, fireMat);
+          explosionGroup.add(fireMesh);
+
+          var fireAuraGeo = new THREE.SphereGeometry(18.0, 24, 24);
+          var fireAuraMat = new THREE.MeshBasicMaterial({
+            color: 0x38bdf8,
+            transparent: true,
+            opacity: 0.92,
+            blending: THREE.AdditiveBlending
+          });
+          var fireAuraMesh = new THREE.Mesh(fireAuraGeo, fireAuraMat);
+          explosionGroup.add(fireAuraMesh);
+
+          shipGroup.visible = false;
+
+          setTimeout(function() {
+            restartSimulation();
+          }, 2600);
+        }
+
         function restartSimulation() {
           STATE.isExploding = false;
+          STATE.warpCoreTemp = 0.0;
+          STATE.coolantLevel = 1.0;
+          updateWarpCoreUI(0.0, false, false, MODE_HYPERSPACE);
+          updateCoolantUI(false);
+          if (missionGuidanceBanner) {
+            missionGuidanceBanner.style.opacity = '1';
+            setTimeout(function() {
+              if (missionGuidanceBanner && STATE.mode === MODE_HYPERSPACE) {
+                missionGuidanceBanner.style.opacity = '0';
+              }
+            }, 7500);
+          }
           if (explosionGroup) {
             while (explosionGroup.children.length > 0) {
               var obj = explosionGroup.children[0];
@@ -2581,6 +4201,7 @@
           shipGroup.visible = true;
           if (explosionOverlay) explosionOverlay.classList.remove('active');
           if (gasWarningBanner) gasWarningBanner.style.opacity = '0';
+          if (gravityWellBanner) gravityWellBanner.style.opacity = '0';
           if (landingPrompt) landingPrompt.style.opacity = '0';
           if (planetaryTelemetry) planetaryTelemetry.style.opacity = '0';
 
@@ -2645,10 +4266,7 @@
             if (isDown) {
               // Lift off from rocky planet if landed
               if (STATE.mode === MODE_PLANET && STATE.isLanded) {
-                STATE.isLanded = false;
-                var liftVec = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion).multiplyScalar(5.5);
-                shipVelocity.add(liftVec);
-                if (landingPrompt) landingPrompt.style.opacity = '0';
+                launchFromSurface();
                 return;
               }
 
@@ -2665,20 +4283,16 @@
             return;
           }
 
-          // Key F: Touchdown / Land on Rocky Planet (or lift off if already landed)
+          // Key F: Hold to Vent/Purge Coolant (5s to clear tank) OR Tap to Land / Liftoff on Rocky Planet
           if (code === 'KeyF' || key === 'f' || kc === 70) {
-            if (isDown && !e.repeat && STATE.mode === MODE_PLANET && STATE.activePlanet && STATE.activePlanet.isRocky && !STATE.isExploding) {
-              if (STATE.isLanded) {
-                // Lift off
-                STATE.isLanded = false;
-                var liftVecF = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion).multiplyScalar(5.5);
-                shipVelocity.add(liftVecF);
-                if (landingPrompt) landingPrompt.style.opacity = '0';
-              } else if (STATE.planetAltitude <= STATE.activePlanet.radius * CONFIG.rockyLandAltitudeRatio) {
-                // Touchdown!
-                STATE.isLanded = true;
-                STATE.shakeIntensity = 0.45;
-                shipVelocity.set(0, 0, 0);
+            keys.f = isDown;
+            if (isDown && !e.repeat && !STATE.isExploding) {
+              if (STATE.mode === MODE_PLANET && STATE.activePlanet && STATE.activePlanet.isRocky && (STATE.isLanded || STATE.planetAltitude <= CONFIG.rockyLandAltitude)) {
+                if (STATE.isLanded) {
+                  launchFromSurface();
+                } else {
+                  initiateTouchdown();
+                }
               }
             }
             return;
@@ -2688,10 +4302,7 @@
           if (code === 'KeyW' || key === 'w' || kc === 87 || code === 'ArrowUp' || key === 'arrowup' || kc === 38) {
             keys.w = isDown;
             if (isDown && STATE.mode === MODE_PLANET && STATE.isLanded) {
-              STATE.isLanded = false;
-              var liftVecW = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion).multiplyScalar(5.5);
-              shipVelocity.add(liftVecW);
-              if (landingPrompt) landingPrompt.style.opacity = '0';
+              launchFromSurface();
             }
           }
           if (code === 'KeyS' || key === 's' || kc === 83 || code === 'ArrowDown' || key === 'arrowdown' || kc === 40) {
@@ -2808,7 +4419,12 @@
           if (STATE.warpCharging) {
             STATE.warpChargeProgress += delta / CONFIG.warpChargeTime;
             var pct = Math.min(1.0, STATE.warpChargeProgress);
-            var chargeMsg = (STATE.mode === MODE_SOLAR) ? 'WARP TO HYPERSPACE' : 'WARP TO SOLAR SYSTEM';
+            var chargeMsg = 'WARP TO SOLAR SYSTEM';
+            if (STATE.mode === MODE_PLANET) {
+              chargeMsg = 'RETURN TO SOLAR CRUISE';
+            } else if (STATE.mode === MODE_SOLAR) {
+              chargeMsg = 'WARP TO HYPERSPACE';
+            }
             updateWarpChargeUI(pct, true, chargeMsg);
 
             // Flare engine power and pull away slightly
@@ -2828,7 +4444,38 @@
               STATE.spaceHeld = false;
               updateWarpChargeUI(1.0, false);
 
-              if (STATE.mode === MODE_SOLAR) {
+              if (STATE.mode === MODE_PLANET) {
+                // Break orbit and return seamlessly to Solar Cruise mode right where the planet is in orbit!
+                var pl = STATE.activePlanet;
+                if (pl && pl.mesh) {
+                  var pWorld = new THREE.Vector3();
+                  pl.mesh.getWorldPosition(pWorld);
+                  var escapeDir = shipGroup.position.clone().sub(pWorld).normalize();
+                  if (escapeDir.lengthSq() < 0.01) escapeDir.set(0, 1, 0);
+                  var escapeDist = pl.radius * (CONFIG.planetEscapeDistRatio + 0.15);
+                  shipGroup.position.copy(pWorld).addScaledVector(escapeDir, escapeDist);
+
+                  // Reorient facing outward away from the planet into solar space
+                  var currentUp = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion);
+                  var escapeRight = new THREE.Vector3().crossVectors(escapeDir, currentUp).normalize();
+                  if (escapeRight.lengthSq() < 0.01) {
+                    escapeRight = new THREE.Vector3().crossVectors(escapeDir, new THREE.Vector3(0, 0, 1)).normalize();
+                  }
+                  var escapeUp = new THREE.Vector3().crossVectors(escapeRight, escapeDir).normalize();
+                  var escapeMat = new THREE.Matrix4().makeBasis(escapeRight, escapeUp, escapeDir.clone().negate());
+                  shipGroup.quaternion.setFromRotationMatrix(escapeMat).normalize();
+                  shipGroup.scale.set(1, 1, 1);
+                }
+                exitPlanetaryMode();
+                STATE.shakeIntensity = 0.35;
+                if (boundaryWarning) {
+                  boundaryWarning.style.opacity = '0.9';
+                  boundaryWarning.textContent = 'ORBIT BROKEN · SOLAR CRUISE RESUMED';
+                  setTimeout(function() {
+                    if (boundaryWarning && STATE.mode === MODE_SOLAR) boundaryWarning.style.opacity = '0';
+                  }, 3000);
+                }
+              } else if (STATE.mode === MODE_SOLAR) {
                 returnToHyperspace();
               } else {
                 var targetStar = findClosestHyperspaceStar();
@@ -2865,11 +4512,11 @@
           }
 
           // ----------------------------------------------------
-          // Bow Slipstream Particle Streaks
+          // Bow Slipstream Particle Streaks (Hyperspace Only)
           // ----------------------------------------------------
           if (STATE.mode === MODE_HYPERSPACE && shipGroup.userData.bowLines) {
             shipGroup.userData.bowLines.visible = true;
-            var speedRatio = (STATE.warpSpeed / CONFIG.warpBaseSpeed);
+            var speedRatio = STATE.warpSpeed / CONFIG.warpBaseSpeed;
             var bowSpeed = (38.0 + speedRatio * 48.0) * delta;
             var streakLenMultiplier = Math.max(0.65, speedRatio * 1.35);
 
@@ -2895,9 +4542,42 @@
             }
 
             bowGeometry.attributes.position.needsUpdate = true;
-            shipGroup.userData.bowLines.material.opacity = 0.4 + speedRatio * 0.45;
+            shipGroup.userData.bowLines.material.opacity = (0.4 + speedRatio * 0.45);
           } else if (shipGroup.userData.bowLines) {
             shipGroup.userData.bowLines.visible = false;
+          }
+
+          // ----------------------------------------------------
+          // Bow Hypersonic Compression Shockwave Animation
+          // ----------------------------------------------------
+          if (bowShockwaveTimer > 0) {
+            bowShockwaveTimer -= delta;
+            var bProgress = Math.max(0, Math.min(1.0, 1.0 - (bowShockwaveTimer / 0.95)));
+            var expScale = 0.2 + Math.pow(bProgress, 0.45) * 44.0;
+            var coneScale = 0.15 + Math.pow(bProgress, 0.55) * 36.0;
+            var alpha = Math.pow(1.0 - bProgress, 1.3);
+
+            if (bowShockwaveRing) {
+              bowShockwaveRing.scale.set(expScale, expScale, 1.0);
+              bowShockwaveRing.material.opacity = alpha * 0.95;
+            }
+            if (bowShockwaveAura) {
+              bowShockwaveAura.scale.set(expScale * 1.35, expScale * 1.35, 1.0);
+              bowShockwaveAura.material.opacity = alpha * 0.65;
+            }
+            if (bowShockwaveCone) {
+              bowShockwaveCone.scale.set(coneScale, coneScale, 1.0 + bProgress * 3.5);
+              bowShockwaveCone.material.opacity = alpha * 0.75;
+            }
+            if (bowShockwaveGlint) {
+              var glintScale = Math.max(0.05, (1.0 - bProgress * 2.2) * 3.8);
+              bowShockwaveGlint.scale.set(glintScale, glintScale, glintScale);
+              bowShockwaveGlint.material.opacity = Math.max(0, 1.0 - bProgress * 2.2);
+            }
+
+            if (bowShockwaveTimer <= 0 && bowShockwaveGroup) {
+              bowShockwaveGroup.visible = false;
+            }
           }
 
           // ----------------------------------------------------
@@ -2920,31 +4600,70 @@
           // Auto-banking into horizontal turns
           var autoBank = applyDeadzone(-mouse.x, CONFIG.deadzone, 0.85);
 
-          // Apply local rotations smoothly without gimbal lock
-          if (pitchRate !== 0) {
-            tempQuat.setFromAxisAngle(localXAxis, pitchRate * delta);
-            shipGroup.quaternion.multiply(tempQuat);
+          // Apply local rotations smoothly without gimbal lock (only while in flight)
+          if (!STATE.isLanded) {
+            if (pitchRate !== 0) {
+              tempQuat.setFromAxisAngle(localXAxis, pitchRate * delta);
+              shipGroup.quaternion.multiply(tempQuat);
+            }
+            if (yawRate !== 0) {
+              tempQuat.setFromAxisAngle(localYAxis, yawRate * delta);
+              shipGroup.quaternion.multiply(tempQuat);
+            }
+            var totalRollRate = rollInput + autoBank;
+            if (totalRollRate !== 0) {
+              tempQuat.setFromAxisAngle(localZAxis, totalRollRate * delta);
+              shipGroup.quaternion.multiply(tempQuat);
+            }
           }
-          if (yawRate !== 0) {
-            tempQuat.setFromAxisAngle(localYAxis, yawRate * delta);
-            shipGroup.quaternion.multiply(tempQuat);
-          }
-          var totalRollRate = rollInput + autoBank;
-          if (totalRollRate !== 0) {
-            tempQuat.setFromAxisAngle(localZAxis, totalRollRate * delta);
-            shipGroup.quaternion.multiply(tempQuat);
-          }
+
+          // Rigorous unit quaternion normalization and unit scale lock
+          // Completely eliminates floating-point matrix distortion, shear, or geometry flattening!
+          shipGroup.quaternion.normalize();
+          shipGroup.scale.set(1, 1, 1);
 
           // Local coordinate vectors from ship's actual orientation
           var forward = new THREE.Vector3(0, 0, -1).applyQuaternion(shipGroup.quaternion);
           var right = new THREE.Vector3(1, 0, 0).applyQuaternion(shipGroup.quaternion);
           var up = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion);
 
+          // Universal Continuous Cryogenic Coolant Purge Mechanic:
+          // Holding [F] clears the full coolant tank in exactly 5.0 seconds (0.20 tank/s)
+          // Reduces core heat by up to -50% (-10.0% heat/s)
+          // Works even when core temperature is at 0%!
+          var isLandedRocky = (STATE.mode === MODE_PLANET && STATE.activePlanet && STATE.activePlanet.isRocky && STATE.isLanded);
+          if (keys.f && !isLandedRocky && !STATE.isExploding) {
+            if (STATE.coolantLevel > 0.0001) {
+              var purgeRate = 1.0 / 5.0; // 0.20 per second: exactly 5.0 seconds to empty 100% tank
+              var deltaPurge = purgeRate * delta;
+              var actualPurge = Math.min(STATE.coolantLevel, deltaPurge);
+              STATE.coolantLevel = Math.max(0.0, STATE.coolantLevel - actualPurge);
+
+              // Coolant cooling: A full tank cools up to 50% of the warp core temp bar (10.0% heat/s)
+              var heatPurged = actualPurge * 50.0;
+              if (STATE.warpCoreTemp > 0) {
+                STATE.warpCoreTemp = Math.max(0.0, STATE.warpCoreTemp - heatPurged);
+              }
+
+              STATE.coolantVenting = true;
+              updateCoolantUI(false, true);
+
+              // Cryogenic vapor vibration on camera
+              camera.position.x += (Math.random() - 0.5) * 0.09;
+              camera.position.y += (Math.random() - 0.5) * 0.09;
+            } else {
+              STATE.coolantVenting = false;
+              updateCoolantUI(false, false);
+            }
+          } else {
+            STATE.coolantVenting = false;
+          }
+
           // ----------------------------------------------------
           // A. HYPERSPACE MODE
           // ----------------------------------------------------
           if (STATE.mode === MODE_HYPERSPACE) {
-            // Speed Control
+            // Speed Control with Slower Warp Power-Up Acceleration Curve
             if (keys.w) {
               STATE.targetWarpSpeed = CONFIG.warpMaxSpeed;
             } else if (keys.s) {
@@ -2953,7 +4672,20 @@
               STATE.targetWarpSpeed = CONFIG.warpBaseSpeed;
             }
 
-            STATE.warpSpeed += (STATE.targetWarpSpeed - STATE.warpSpeed) * Math.min(1.0, 6.0 * delta);
+            if (STATE.warpSpeed < STATE.targetWarpSpeed) {
+              // Accelerating / powering up warp factor: much slower spool-up curve (takes ~3.5s to reach full boost)
+              var warpRatio = (STATE.warpSpeed - CONFIG.warpMinSpeed) / Math.max(1, (CONFIG.warpMaxSpeed - CONFIG.warpMinSpeed));
+              var warpAccelRate = 0.40 + Math.pow(Math.max(0, warpRatio), 1.1) * 0.55;
+              STATE.warpSpeed += (STATE.targetWarpSpeed - STATE.warpSpeed) * Math.min(1.0, warpAccelRate * delta);
+            } else {
+              // Deceleration when releasing W back to cruising pace or braking with S
+              var decelRate = keys.s ? 2.5 : 1.35;
+              STATE.warpSpeed += (STATE.targetWarpSpeed - STATE.warpSpeed) * Math.min(1.0, decelRate * delta);
+            }
+
+            // Dynamic camera pull-away surge on acceleration
+            var warpBoostFrac = Math.max(0, (STATE.warpSpeed - CONFIG.warpBaseSpeed) / (CONFIG.warpMaxSpeed - CONFIG.warpBaseSpeed));
+            STATE.pullAway += (warpBoostFrac * 4.5 - STATE.pullAway) * (4.0 * delta);
 
             // Dynamic FOV widening
             var sRatio = (STATE.warpSpeed - CONFIG.warpMinSpeed) / (CONFIG.warpMaxSpeed - CONFIG.warpMinSpeed);
@@ -3033,6 +4765,15 @@
             var approachedStar = null;
             var canTriggerDrop = (now - STATE.hyperspaceEntryTime) > (CONFIG.hyperspaceCooldownTime * 1000);
 
+            // Crosshair Star Scanner Target Selection
+            var scannedStar = null;
+            var scannedStarDist = Infinity;
+            var scannedScreenX = 0;
+            var scannedScreenY = 0;
+            var screenHalfW = window.innerWidth * 0.5;
+            var screenHalfH = window.innerHeight * 0.5;
+            var camDirVec = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+
             for (var i = 0; i < physicalStars.length; i++) {
               var star = physicalStars[i];
               var pos = star.group.position;
@@ -3046,10 +4787,39 @@
                 approachedStar = star;
               }
 
-              // Infinite generation in any direction: recycle star ahead if it falls behind ship
-              if (dotFlight < -120 || distToShip > 3200) {
-                var recycleDist = 1800 + Math.random() * 800;
-                var rSpread = 34 + Math.pow(Math.random(), 1.4) * 360;
+              // Reduced scanner range: only stars within CONFIG.starScanMaxRange (280u)
+              if (distToShip <= CONFIG.starScanMaxRange) {
+                var relCam = pos.clone().sub(camera.position);
+                var dotCam = relCam.dot(camDirVec);
+                if (dotCam > 4.0) {
+                  var pProj = pos.clone().project(camera);
+                  if (pProj.z < 1.0) {
+                    var pScreenX = (pProj.x * 0.5 + 0.5) * window.innerWidth;
+                    var pScreenY = (-pProj.y * 0.5 + 0.5) * window.innerHeight;
+                    var dCenter = Math.sqrt(Math.pow(pScreenX - screenHalfW, 2) + Math.pow(pScreenY - screenHalfH, 2));
+                    // When multiple stars are under the cursor (within 130px), PRIORITIZE THE NEAREST STAR TO SHIP
+                    if (dCenter <= 130.0) {
+                      if (distToShip < scannedStarDist) {
+                        scannedStar = star;
+                        scannedStarDist = distToShip;
+                        scannedScreenX = pScreenX;
+                        scannedScreenY = pScreenY;
+                      }
+                    }
+                  }
+                }
+              }
+
+              // Infinite dynamic generation: recycle stars that fall behind ship, drift too far laterally on turn, or exceed range
+              var isBehind = dotFlight < -50;
+              var isOutOfRange = distToShip > 2200;
+              var isFlankingVoid = (distToShip > 500 && dotFlight < distToShip * 0.25);
+
+              if (isBehind || isOutOfRange || isFlankingVoid) {
+                // Distribute along forward flight corridor from close range (110u) to long range (1800u)
+                // This eliminates empty voids and guarantees immediate star availability on any turn heading!
+                var recycleDist = 110 + Math.pow(Math.random(), 1.3) * 1650;
+                var rSpread = 30 + Math.pow(Math.random(), 1.4) * 340;
                 var angle = Math.random() * Math.PI * 2;
                 pos.copy(shipGroup.position)
                   .addScaledVector(flightDir, recycleDist)
@@ -3066,12 +4836,196 @@
 
               var pulse = 1.0 + Math.sin(now * 0.003 + star.pulseOffset) * 0.06;
               star.coronaMesh.scale.set(pulse, pulse, pulse);
+
+              // Lens Flare: Very small glint at first, blooming larger as you close in (same flare as solar system)
+              var flareDist = Math.max(0, Math.min(1.0, 1.0 - (distToShip - 25.0) / 1400.0));
+              var flareCurve = Math.pow(flareDist, 1.6);
+
+              // 1. Spikes / Glint sprite: pin-point glint far away, growing into brilliant starburst close up
+              var baseGlint = star.radius * 2.0;
+              var glintScale = baseGlint + flareCurve * (star.radius * 16.0);
+              star.glintSprite.scale.set(glintScale, glintScale, 1.0);
+              star.glintSprite.material.opacity = 0.40 + 0.15 * Math.sin(now * 0.004 + star.pulseOffset) + flareCurve * 0.45;
+              star.glintSprite.material.rotation = (now * 0.00018) + star.pulseOffset;
+
+              // 2. Anamorphic horizontal streak flare: subtle sliver far away, expanding across view close up
+              var baseStreakW = star.radius * 3.8;
+              var streakW = baseStreakW + flareCurve * (star.radius * 32.0);
+              var streakH = star.radius * (0.45 + flareCurve * 2.2);
+              star.streakSprite.scale.set(streakW, streakH, 1.0);
+              star.streakSprite.material.opacity = 0.16 + flareCurve * 0.62;
             }
 
-            if (canTriggerDrop && closestDistAhead < CONFIG.approachNoticeDist && approachedStar) {
-              starLockIndicator.style.opacity = '0.6';
+            // Update Crosshair Star Scanner HUD (Streamlined: Name, Star Type, Proximity)
+            if (scannedStar && starScanReticle && starScannerCard) {
+              starScanReticle.style.opacity = '1';
+              starScanReticle.style.left = scannedScreenX.toFixed(1) + 'px';
+              starScanReticle.style.top = scannedScreenY.toFixed(1) + 'px';
+
+              var cardX = scannedScreenX + 30;
+              var cardY = scannedScreenY - 38;
+              if (cardX + 245 > window.innerWidth) cardX = scannedScreenX - 275;
+              if (cardY + 115 > window.innerHeight) cardY = window.innerHeight - 125;
+              if (cardY < 65) cardY = 65;
+              starScannerCard.style.left = Math.max(16, cardX) + 'px';
+              starScannerCard.style.top = Math.max(16, cardY) + 'px';
+              starScannerCard.style.opacity = '1';
+
+              if (scanHeaderTitle) scanHeaderTitle.textContent = '⌖ STELLAR SCAN';
+              if (scanStarName) scanStarName.textContent = scannedStar.name.toUpperCase();
+              if (scanTypeLabel) scanTypeLabel.textContent = 'STAR TYPE:';
+              if (scanStarClass) scanStarClass.textContent = scannedStar.spectralClass || 'CLASS G (YELLOW DWARF)';
+              if (scanStarDist) {
+                if (scannedStarDist <= CONFIG.proximityTriggerDist) {
+                  scanStarDist.textContent = scannedStarDist.toFixed(1) + 'u · [DROP ACHIEVED!]';
+                  scanStarDist.className = 'scan-val drop-highlight';
+                } else if (scannedStarDist <= CONFIG.approachNoticeDist) {
+                  scanStarDist.textContent = scannedStarDist.toFixed(1) + 'u (DROP: 5.2u)';
+                  scanStarDist.className = 'scan-val drop-highlight';
+                } else {
+                  scanStarDist.textContent = scannedStarDist.toFixed(1) + 'u (DROP: 5.2u)';
+                  scanStarDist.className = 'scan-val';
+                }
+              }
+
+              // Dismiss initial mission guidance when scanning a star
+              if (missionGuidanceBanner) missionGuidanceBanner.style.opacity = '0';
             } else {
-              starLockIndicator.style.opacity = '0';
+              if (starScanReticle) starScanReticle.style.opacity = '0';
+              if (starScannerCard) starScannerCard.style.opacity = '0';
+            }
+
+            // Hyperspace Cosmic Nebulae & Gas Cloud Obstacles Update
+            var inIceNebula = false;
+            var inThermalNebula = false;
+            var activeNebulaPen = 0;
+            var activeNebulaObj = null;
+
+            if (hyperspaceNebulae && hyperspaceNebulae.length > 0) {
+              for (var n = 0; n < hyperspaceNebulae.length; n++) {
+                var neb = hyperspaceNebulae[n];
+                var nebPos = neb.group.position;
+                var dNebToShip = nebPos.distanceTo(shipGroup.position);
+                var nebRelVec = nebPos.clone().sub(shipGroup.position);
+                var dotNebFlight = nebRelVec.dot(flightDir);
+
+                // Infinite dynamic generation in 3D: recycle nebula ahead if it falls behind ship or off to flank
+                var isNebBehind = dotNebFlight < -80;
+                var isNebFar = dNebToShip > 2600;
+                var isNebFlank = (dNebToShip > 600 && dotNebFlight < 0);
+                if (isNebBehind || isNebFar || isNebFlank) {
+                  var nebRecycleDist = 320 + Math.pow(Math.random(), 1.3) * 1800;
+                  var nebSpread = 32 + Math.pow(Math.random(), 1.4) * 280;
+                  var nebAngle = Math.random() * Math.PI * 2;
+                  nebPos.copy(shipGroup.position)
+                    .addScaledVector(flightDir, nebRecycleDist)
+                    .addScaledVector(right, Math.cos(nebAngle) * nebSpread)
+                    .addScaledVector(up, Math.sin(nebAngle) * nebSpread);
+                }
+
+                // Gently spin cloud formation and rotate puff sprites
+                neb.group.rotation.z += neb.spinSpeed * delta;
+                if (neb.sprites) {
+                  for (var spIdx = 0; spIdx < neb.sprites.length; spIdx++) {
+                    neb.sprites[spIdx].sprite.material.rotation += neb.sprites[spIdx].rotSpeed * delta;
+                  }
+                }
+
+                // Check if ship is inside or clipping this nebula cloud
+                if (dNebToShip < neb.radius) {
+                  var pen = 1.0 - (dNebToShip / neb.radius);
+                  if (pen > activeNebulaPen) {
+                    activeNebulaPen = pen;
+                    activeNebulaObj = neb;
+                    if (neb.type === 'ice') {
+                      inIceNebula = true;
+                      inThermalNebula = false;
+                    } else if (neb.type === 'thermal') {
+                      inThermalNebula = true;
+                      inIceNebula = false;
+                    }
+                  }
+                }
+              }
+            }
+
+            // Cosmic Gas Drag, Camera Buffeting, and Thermodynamics
+            if (activeNebulaObj && activeNebulaPen > 0) {
+              // 1. Slowdown: Ice really slows you down, Thermal slows you down a little
+              var isIce = activeNebulaObj.type === 'ice';
+              var dragMult = isIce ? 3.0 : 1.25;
+              var dragRate = (0.55 + activeNebulaPen * 0.85) * dragMult;
+              var minWarpLimit = isIce ? CONFIG.warpMinSpeed : (CONFIG.warpMinSpeed * 1.8);
+              STATE.warpSpeed = Math.max(minWarpLimit, STATE.warpSpeed - STATE.warpSpeed * dragRate * delta);
+
+              // 2. Gas turbulence camera buffeting / shake
+              var shakeBase = isIce ? 0.36 : 0.22;
+              var nebShake = (shakeBase + activeNebulaPen * 0.65) * (STATE.warpSpeed / CONFIG.warpBaseSpeed);
+              camera.position.x += (Math.random() - 0.5) * nebShake;
+              camera.position.y += (Math.random() - 0.5) * nebShake;
+              camera.position.z += (Math.random() - 0.5) * nebShake * 0.6;
+              camera.rotation.z += (Math.random() - 0.5) * nebShake * 0.03;
+
+              if (starLockIndicator) {
+                starLockIndicator.style.opacity = '0.9';
+                if (isIce) {
+                  starLockIndicator.textContent = '❄ CRYOGENIC ICE NEBULA · CORE COOLING ENGAGED · SPEED HEAVILY IMPEDED';
+                } else {
+                  starLockIndicator.textContent = '⚠ SUPERHEATED PLASMA NEBULA · RAPID CORE OVERHEAT · VELOCITY DRAG';
+                }
+              }
+            } else if (!canTriggerDrop || closestDistAhead >= CONFIG.approachNoticeDist || !approachedStar) {
+              if (starLockIndicator && STATE.mode === MODE_HYPERSPACE) {
+                starLockIndicator.style.opacity = '0';
+              }
+            } else if (canTriggerDrop && closestDistAhead < CONFIG.approachNoticeDist && approachedStar) {
+              if (starLockIndicator) {
+                starLockIndicator.style.opacity = '0.6';
+                var stName = (approachedStar && (approachedStar.name || (approachedStar.stellarData && approachedStar.stellarData.name))) || 'STELLAR SYSTEM';
+                starLockIndicator.textContent = 'APPROACHING ' + String(stName).toUpperCase();
+              }
+            }
+
+            // ----------------------------------------------------
+            // Warp-Core Heating Mechanic (Hyperspace Mode)
+            // ----------------------------------------------------
+            if (!STATE.isExploding) {
+              if (inIceNebula) {
+                // Ice (blue) nebula cools core a little (-7.5 %/s)
+                var coolRate = (activeNebulaObj && activeNebulaObj.palette && activeNebulaObj.palette.coolingRate) || 7.5;
+                STATE.warpCoreTemp = Math.max(0.0, STATE.warpCoreTemp - coolRate * delta);
+              } else if (inThermalNebula) {
+                // Red nebula overheats core really quickly (+15.0 %/s)
+                var heatSurge = (activeNebulaObj && activeNebulaObj.palette && activeNebulaObj.palette.heatingRate) || 15.0;
+                STATE.warpCoreTemp = Math.min(100.0, STATE.warpCoreTemp + heatSurge * delta);
+              } else {
+                // Normal heating curve:
+                // Normal speed (cruise): takes about 1 minute to get to critical (1.667 %/s)
+                // Pushing W: speeds up core temps quickly (3x -> 5.0 %/s, ~20s to critical)
+                // Pulling back with S: slows it down to half (0.5x -> 0.833 %/s, ~120s to critical)
+                var baseHeatRate = 1.667;
+                if (keys.w) {
+                  baseHeatRate *= 3.0;
+                } else if (keys.s) {
+                  baseHeatRate *= 0.5;
+                }
+                STATE.warpCoreTemp = Math.min(100.0, STATE.warpCoreTemp + baseHeatRate * delta);
+              }
+
+              updateWarpCoreUI(STATE.warpCoreTemp, inIceNebula, inThermalNebula);
+
+              // Sub-critical warning jitter when nearing critical (>= 85%)
+              if (STATE.warpCoreTemp >= 85.0) {
+                var overRatio = (STATE.warpCoreTemp - 85.0) / 15.0;
+                var heatJitter = overRatio * 0.16;
+                camera.position.x += (Math.random() - 0.5) * heatJitter;
+                camera.position.y += (Math.random() - 0.5) * heatJitter;
+              }
+
+              // Catastrophic Core Overheat Explosion
+              if (STATE.warpCoreTemp >= 100.0) {
+                triggerWarpCoreExplosion();
+              }
             }
 
             if (canTriggerDrop && closestDistAhead < CONFIG.proximityTriggerDist && approachedStar) {
@@ -3093,40 +5047,42 @@
           }
 
           // ----------------------------------------------------
-          // B. SOLAR SYSTEM MODE
+          // B. SOLAR SYSTEM & PLANETARY MODES
           // ----------------------------------------------------
-          else if (STATE.mode === MODE_SOLAR) {
-            // Full 3D Flight Navigation with measured, realistic velocities
-            var targetVel = new THREE.Vector3();
-            if (keys.w) targetVel.addScaledVector(forward, CONFIG.solarMaxSpeed);
-            if (keys.s) targetVel.addScaledVector(forward, -CONFIG.solarReverseSpeed);
-            if (keys.d) targetVel.addScaledVector(right, CONFIG.solarStrafeSpeed);
-            if (keys.a) targetVel.addScaledVector(right, -CONFIG.solarStrafeSpeed);
+          else if (STATE.mode === MODE_SOLAR || STATE.mode === MODE_PLANET) {
+            if (missionGuidanceBanner) missionGuidanceBanner.style.opacity = '0';
 
-            if (keys.w || keys.s || keys.a || keys.d) {
-              // Accelerate smoothly towards target velocity
-              shipVelocity.lerp(targetVel, Math.min(1.0, 3.5 * delta));
-            } else {
-              // Smooth space friction / damping when coasting
-              shipVelocity.multiplyScalar(Math.pow(0.94, delta * 60));
+            // Warp-Core Thermodynamic Dissipation:
+            // - Solar Cruise: cools VERY slowly (-0.35%/s), accelerating (W) heats it up (+0.70%/s)!
+            // - Planetary Mode: rapid atmospheric convective heat sink (-6.5%/s, ~15s)
+            if (!STATE.isExploding) {
+              if (STATE.mode === MODE_PLANET) {
+                if (STATE.warpCoreTemp > 0) {
+                  var pCoolRate = 6.5;
+                  STATE.warpCoreTemp = Math.max(0.0, STATE.warpCoreTemp - pCoolRate * delta);
+                }
+                updateWarpCoreUI(STATE.warpCoreTemp, false, false, MODE_PLANET);
+              } else {
+                if (keys.w) {
+                  // Accelerating increases core temp very slightly (+0.70%/s)!
+                  var sHeatRate = 0.70;
+                  STATE.warpCoreTemp = Math.min(100.0, STATE.warpCoreTemp + sHeatRate * delta);
+                } else if (keys.s) {
+                  // Braking / idle crawl cools slightly faster (-0.75%/s)
+                  if (STATE.warpCoreTemp > 0) {
+                    var sBrakeCool = 0.75;
+                    STATE.warpCoreTemp = Math.max(0.0, STATE.warpCoreTemp - sBrakeCool * delta);
+                  }
+                } else {
+                  // Cruising pace cools VERY slowly (-0.35%/s)
+                  if (STATE.warpCoreTemp > 0) {
+                    var sPassiveCool = 0.35;
+                    STATE.warpCoreTemp = Math.max(0.0, STATE.warpCoreTemp - sPassiveCool * delta);
+                  }
+                }
+                updateWarpCoreUI(STATE.warpCoreTemp, false, false, MODE_SOLAR);
+              }
             }
-
-            // Delta-time scaled position update (prevents runaway high-FPS speed)
-            shipGroup.position.addScaledVector(shipVelocity, delta);
-
-            // Chase Camera Follow with Drift & Pull-Away in Solar System
-            var solarChaseOffset = shipGroup.position.clone()
-              .addScaledVector(forward, -(10.5 + STATE.pullAway))
-              .addScaledVector(up, 3.0);
-
-            camera.position.x += (solarChaseOffset.x - camera.position.x) * (5.5 * delta);
-            camera.position.y += (solarChaseOffset.y - camera.position.y) * (5.5 * delta);
-            camera.position.z += (solarChaseOffset.z - camera.position.z) * (5.5 * delta);
-
-            var solarLookTarget = shipGroup.position.clone().addScaledVector(forward, 12.0);
-            camLookTarget.lerp(solarLookTarget, 7.0 * delta);
-            camera.lookAt(camLookTarget);
-            camera.up.lerp(up, 6.0 * delta);
 
             if (solarStarfieldPoints) {
               solarStarfieldPoints.position.copy(camera.position);
@@ -3136,49 +5092,7 @@
               bgStarfieldPoints.visible = false;
             }
 
-            var distFromCenter = shipGroup.position.length();
-
-            if (distFromCenter > CONFIG.solarBoundaryDist * 0.82) {
-              boundaryWarning.style.opacity = '0.85';
-              boundaryWarning.textContent = 'APPROACHING SYSTEM BOUNDARY · ESCAPE VELOCITY INITIATING';
-            } else {
-              boundaryWarning.style.opacity = '0';
-            }
-
-            if (distFromCenter >= CONFIG.solarBoundaryDist) {
-              returnToHyperspace();
-            }
-
-            // Proximity detection for Planetary Mode entry
-            var closestPlanetDist = Infinity;
-            var closestPlanetObj = null;
-            var tmpPWorld = new THREE.Vector3();
-
-            for (var p = 0; p < orbitingPlanets.length; p++) {
-              var pl = orbitingPlanets[p];
-              pl.mesh.getWorldPosition(tmpPWorld);
-              var d = shipGroup.position.distanceTo(tmpPWorld);
-              if (d < closestPlanetDist) {
-                closestPlanetDist = d;
-                closestPlanetObj = pl;
-              }
-            }
-
-            if (closestPlanetObj) {
-              if (closestPlanetDist <= closestPlanetObj.radius * CONFIG.planetApproachDistRatio) {
-                // Drop out of solar cruise into Planetary Mode!
-                enterPlanetaryMode(closestPlanetObj);
-              } else if (closestPlanetDist <= closestPlanetObj.radius * 5.5) {
-                if (starLockIndicator) {
-                  starLockIndicator.style.opacity = '0.85';
-                  starLockIndicator.textContent = 'APPROACHING ' + closestPlanetObj.name.toUpperCase() + ' · ' + Math.round(closestPlanetDist * 10) + ' KM';
-                }
-              } else if (starLockIndicator && STATE.mode === MODE_SOLAR) {
-                starLockIndicator.style.opacity = '0';
-              }
-            }
-
-            // Animate orbiting planets & moons with Keplerian mechanics (10x slower axial spin)
+            // Animate orbiting planets & moons with Keplerian mechanics
             for (var p = 0; p < orbitingPlanets.length; p++) {
               var pl = orbitingPlanets[p];
               pl.angle += pl.speed * delta;
@@ -3186,9 +5100,14 @@
               pl.mesh.position.z = Math.sin(pl.angle) * pl.dist;
               pl.mesh.rotation.y += pl.spinSpeed * (delta * 60.0);
 
-              // Animate atmospheric cloud layer rotation (10x slower)
+              // Animate atmospheric cloud layer rotation
               if (pl.clouds) {
                 pl.clouds.rotation.y += pl.cloudSpinSpeed * (delta * 60.0);
+              }
+              if (pl.innerClouds) {
+                for (var ic = 0; ic < pl.innerClouds.length; ic++) {
+                  pl.innerClouds[ic].mesh.rotation.y += pl.innerClouds[ic].spin * (delta * 60.0);
+                }
               }
 
               // Animate moon orbit around planet if present
@@ -3200,8 +5119,96 @@
               }
             }
 
+            // Planet Crosshair Scanner in Solar Cruise Mode
+            if (STATE.mode === MODE_SOLAR) {
+              var scannedPlanet = null;
+              var scannedPlanetDist = Infinity;
+              var scannedPlanetScreenX = 0;
+              var scannedPlanetScreenY = 0;
+              var bestPlanetCrosshairDist = 200.0;
+              var screenHalfW = window.innerWidth * 0.5;
+              var screenHalfH = window.innerHeight * 0.5;
+              var camDirVec = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+
+              var tempPlanetWorld = new THREE.Vector3();
+              for (var pi = 0; pi < orbitingPlanets.length; pi++) {
+                var plObj = orbitingPlanets[pi];
+                plObj.mesh.getWorldPosition(tempPlanetWorld);
+                var dShip = shipGroup.position.distanceTo(tempPlanetWorld);
+
+                var relCam = tempPlanetWorld.clone().sub(camera.position);
+                var dotCam = relCam.dot(camDirVec);
+                if (dotCam > 10.0) {
+                  var pProj = tempPlanetWorld.clone().project(camera);
+                  if (pProj.z < 1.0) {
+                    var pScreenX = (pProj.x * 0.5 + 0.5) * window.innerWidth;
+                    var pScreenY = (-pProj.y * 0.5 + 0.5) * window.innerHeight;
+                    var dCenter = Math.sqrt(Math.pow(pScreenX - screenHalfW, 2) + Math.pow(pScreenY - screenHalfH, 2));
+                    // Prioritize the nearest planet under the cursor (within 160px)
+                    if (dCenter <= 160.0) {
+                      if (dShip < scannedPlanetDist) {
+                        scannedPlanet = plObj;
+                        scannedPlanetDist = dShip;
+                        scannedPlanetScreenX = pScreenX;
+                        scannedPlanetScreenY = pScreenY;
+                      }
+                    }
+                  }
+                }
+              }
+
+              if (scannedPlanet && starScanReticle && starScannerCard) {
+                starScanReticle.style.opacity = '1';
+                starScanReticle.style.left = scannedPlanetScreenX.toFixed(1) + 'px';
+                starScanReticle.style.top = scannedPlanetScreenY.toFixed(1) + 'px';
+
+                var cardX = scannedPlanetScreenX + 30;
+                var cardY = scannedPlanetScreenY - 38;
+                if (cardX + 245 > window.innerWidth) cardX = scannedPlanetScreenX - 275;
+                if (cardY + 115 > window.innerHeight) cardY = window.innerHeight - 125;
+                if (cardY < 65) cardY = 65;
+                starScannerCard.style.left = Math.max(16, cardX) + 'px';
+                starScannerCard.style.top = Math.max(16, cardY) + 'px';
+                starScannerCard.style.opacity = '1';
+
+                if (scanHeaderTitle) scanHeaderTitle.textContent = '⌖ PLANET SCAN';
+                if (scanStarName) scanStarName.textContent = scannedPlanet.name.toUpperCase();
+                if (scanTypeLabel) scanTypeLabel.textContent = 'PLANET TYPE:';
+                if (scanStarClass) {
+                  var pTypeStr = '';
+                  if (!scannedPlanet.isRocky) {
+                    var gasSub = (scannedPlanet.subType && scannedPlanet.subType !== 'gas') ? (scannedPlanet.subType.toUpperCase() + ' ') : '';
+                    pTypeStr = gasSub + 'GAS GIANT';
+                  } else {
+                    var rockSub = (scannedPlanet.subType && scannedPlanet.subType !== 'rocky') ? (scannedPlanet.subType.toUpperCase() + ' ') : '';
+                    pTypeStr = rockSub + 'TERRESTRIAL';
+                  }
+                  scanStarClass.textContent = pTypeStr;
+                }
+                if (scanStarDist) {
+                  var distKm = Math.round(scannedPlanetDist);
+                  var entryRadius = Math.round(scannedPlanet.radius * CONFIG.planetApproachDistRatio);
+                  if (scannedPlanetDist <= entryRadius) {
+                    scanStarDist.textContent = distKm + ' km · [ORBITAL INSERTION READY]';
+                    scanStarDist.className = 'scan-val drop-highlight';
+                  } else {
+                    scanStarDist.textContent = distKm + ' km (ENTRY: ' + entryRadius + ' km)';
+                    scanStarDist.className = 'scan-val';
+                  }
+                }
+              } else {
+                if (starScanReticle) starScanReticle.style.opacity = '0';
+                if (starScannerCard) starScannerCard.style.opacity = '0';
+              }
+            } else {
+              // In atmospheric planetary mode, hide targeting scanner
+              if (starScanReticle) starScanReticle.style.opacity = '0';
+              if (starScannerCard) starScannerCard.style.opacity = '0';
+            }
+
             if (solarGroup) {
-              solarGroup.rotation.y += 0.0004;
+              // Ultra-slow galactic drift (10x+ slower) so planets orbit predictably without wild runaway speeds
+              solarGroup.rotation.y += 0.000015 * (delta * 60.0);
             }
 
             // Dynamic Star Solar Flare & Blinding Radiance when looking at the star
@@ -3215,55 +5222,559 @@
 
               var lookDot = camDir.dot(dirToStar);
 
-              // Flare initiates as the star enters the camera view cone (lookDot > 0.30)
-              // and reaches peak blinding intensity when looking directly at it (lookDot -> 1.0)
               var targetLookFactor = 0.0;
-              if (lookDot > 0.30) {
-                targetLookFactor = Math.pow((lookDot - 0.30) / 0.70, 1.8);
+              if (lookDot > 0.58) {
+                targetLookFactor = Math.pow((lookDot - 0.58) / 0.42, 1.6);
               }
 
               currentSolarFlare.lookFactor += (targetLookFactor - currentSolarFlare.lookFactor) * Math.min(1.0, 8.5 * delta);
               var lf = currentSolarFlare.lookFactor;
               var sRad = currentSolarFlare.starRadius;
 
-              // Anamorphic horizontal flare streak expands and shines
+              // Animate central star mesh rotation and swirly plasma texture translation
+              if (currentSolarFlare.centralMesh) {
+                currentSolarFlare.centralMesh.rotation.y += 0.0006 * (delta * 60.0);
+                if (currentSolarFlare.centralMesh.material && currentSolarFlare.centralMesh.material.map) {
+                  currentSolarFlare.centralMesh.material.map.offset.x += 0.00015 * (delta * 60.0);
+                }
+              }
+
+              // Bigger, more pronounced and radiant solar flares
               if (currentSolarFlare.streakSprite) {
-                currentSolarFlare.streakSprite.material.opacity = 0.22 + lf * 0.78;
-                var streakW = (sRad * 26.0) * (1.0 + lf * 1.6);
-                var streakH = (sRad * 2.2) * (1.0 + lf * 0.9);
+                currentSolarFlare.streakSprite.material.opacity = 0.20 + lf * 0.72;
+                var streakW = (sRad * 11.0) * (1.0 + lf * 1.6);
+                var streakH = (sRad * 1.1) * (1.0 + lf * 0.6);
                 currentSolarFlare.streakSprite.scale.set(streakW, streakH, 1.0);
               }
 
-              // Diffraction starburst spikes flare out with camera roll
               if (currentSolarFlare.spikesSprite) {
-                currentSolarFlare.spikesSprite.material.opacity = 0.18 + lf * 0.82;
-                var spkScale = (sRad * 14.0) * (1.0 + lf * 0.85);
+                currentSolarFlare.spikesSprite.material.opacity = 0.25 + lf * 0.65;
+                var spkScale = (sRad * 6.0) * (1.0 + lf * 0.9);
                 currentSolarFlare.spikesSprite.scale.set(spkScale, spkScale, 1.0);
                 currentSolarFlare.spikesSprite.material.rotation = camera.rotation.z + (now * 0.00012);
               }
 
-              // Blinding solar glare halo disc
               if (currentSolarFlare.glareSprite) {
-                currentSolarFlare.glareSprite.material.opacity = lf * 0.82;
-                var glareScale = (sRad * 15.0) * (1.0 + lf * 1.3);
+                currentSolarFlare.glareSprite.material.opacity = 0.15 + lf * 0.55;
+                var glareScale = (sRad * 5.0) * (1.0 + lf * 0.7);
                 currentSolarFlare.glareSprite.scale.set(glareScale, glareScale, 1.0);
               }
 
-              // Gentle solar core breathing pulse
               if (currentSolarFlare.coronaSprite) {
-                currentSolarFlare.coronaSprite.material.opacity = 0.92 + Math.sin(now * 0.0035) * 0.07;
+                currentSolarFlare.coronaSprite.material.opacity = 0.88 + Math.sin(now * 0.0035) * 0.06 + lf * 0.10;
+                var corScale = (sRad * 4.2) * (1.0 + lf * 0.35);
+                currentSolarFlare.coronaSprite.scale.set(corScale, corScale, 1.0);
               }
 
-              // Slowly rotate chromosphere magnetic field
+              if (currentSolarFlare.auraSprite) {
+                currentSolarFlare.auraSprite.material.opacity = 0.38 + lf * 0.30;
+                var auraScale = (sRad * 7.5) * (1.0 + lf * 0.4);
+                currentSolarFlare.auraSprite.scale.set(auraScale, auraScale, 1.0);
+              }
+
               if (currentSolarFlare.chromosphereMesh) {
-                currentSolarFlare.chromosphereMesh.rotation.y += 0.0015 * (delta * 60.0);
-                currentSolarFlare.chromosphereMesh.rotation.z += 0.0008 * (delta * 60.0);
+                currentSolarFlare.chromosphereMesh.rotation.y -= 0.0005 * (delta * 60.0);
+                currentSolarFlare.chromosphereMesh.rotation.z += 0.0003 * (delta * 60.0);
+                if (currentSolarFlare.chromosphereMesh.material && currentSolarFlare.chromosphereMesh.material.map) {
+                  currentSolarFlare.chromosphereMesh.material.map.offset.x -= 0.0002 * (delta * 60.0);
+                }
               }
 
-              // Blinding Bloom Pass response when staring into the star
               if (bloomPass) {
-                bloomPass.strength = 0.85 + lf * 1.45; // Blinding bloom up to 2.3!
-                bloomPass.radius = 0.35 + lf * 0.45;
+                bloomPass.strength = 0.45 + lf * 0.65;
+                bloomPass.radius = 0.30 + lf * 0.32;
+              }
+            }
+
+            // ====================================================
+            // SUB-BRANCH 1: PLANETARY ATMOSPHERIC FLIGHT & SURFACE
+            // ====================================================
+            if (STATE.mode === MODE_PLANET) {
+              var activePl = STATE.activePlanet;
+              if (!activePl) {
+                exitPlanetaryMode();
+              } else {
+                var curPlanetPos = new THREE.Vector3();
+                activePl.mesh.getWorldPosition(curPlanetPos);
+                var planetDelta = curPlanetPos.clone().sub(STATE.lastPlanetPos);
+                STATE.lastPlanetPos.copy(curPlanetPos);
+
+                // Local surface normal pointing from planet center to ship (radial UP)
+                var relPos = shipGroup.position.clone().sub(curPlanetPos);
+                var curSurfaceUp = relPos.clone().normalize();
+
+                if (STATE.isLanded) {
+                  // Ship is securely anchored on the rotating planet's terrain using clean world quaternion
+                  activePl.mesh.updateMatrixWorld(true);
+                  var plWorldQuat = new THREE.Quaternion();
+                  activePl.mesh.getWorldQuaternion(plWorldQuat);
+                  shipGroup.position.copy(activePl.mesh.localToWorld(STATE.landedLocalPos.clone()));
+                  shipGroup.quaternion.copy(plWorldQuat.clone().multiply(STATE.landedLocalQuat)).normalize();
+                  shipGroup.scale.set(1, 1, 1);
+                  shipVelocity.set(0, 0, 0);
+
+                  camera.position.add(planetDelta);
+                  camLookTarget.add(planetDelta);
+
+                  STATE.planetAltitude = 0;
+                  if (telemStatus) telemStatus.textContent = 'TOUCHDOWN · BASE ACTIVE';
+                  if (telemDot) telemDot.style.background = '#4ade80';
+
+                  if (landingPrompt) {
+                    landingPrompt.style.opacity = '1';
+                    landingPrompt.innerHTML = '<span class="land-key">[SPACE] / [W] / [F]</span> LAUNCH INTO FLIGHT · TOUCHDOWN SUCCESSFUL';
+                  }
+                } else {
+                  // Gravitational reference frame: apply orbital delta so ship stays with the planet
+                  shipGroup.position.add(planetDelta);
+                  camera.position.add(planetDelta);
+                  camLookTarget.add(planetDelta);
+
+                  // Continuous, responsive 3D flight controls with minimum speed and 3x boost
+                  var targetPlaneSpeed = CONFIG.planetCruiseSpeed;
+                  if (keys.w) {
+                    targetPlaneSpeed = CONFIG.planetBoostSpeed;
+                  } else if (keys.s) {
+                    targetPlaneSpeed = CONFIG.planetMinSpeed;
+                  }
+
+                  if (targetPlaneSpeed > STATE.planetSpeed) {
+                    var pBoostNorm = (STATE.planetSpeed - CONFIG.planetCruiseSpeed) / Math.max(1, (CONFIG.planetBoostSpeed - CONFIG.planetCruiseSpeed));
+                    var pAccelRate = 0.55 + Math.pow(Math.max(0, pBoostNorm), 0.8) * 0.65;
+                    STATE.planetSpeed += (targetPlaneSpeed - STATE.planetSpeed) * Math.min(1.0, pAccelRate * delta);
+                  } else {
+                    var pDecelRate = keys.s ? 2.5 : 1.35;
+                    STATE.planetSpeed += (targetPlaneSpeed - STATE.planetSpeed) * Math.min(1.0, pDecelRate * delta);
+                  }
+                  STATE.planetSpeed = Math.max(CONFIG.planetMinSpeed, STATE.planetSpeed);
+
+                  var planeStrafe = 0;
+                  if (keys.d) planeStrafe += CONFIG.planetStrafeSpeed;
+                  if (keys.a) planeStrafe -= CONFIG.planetStrafeSpeed;
+
+                  var pFlightStep = forward.clone().multiplyScalar(STATE.planetSpeed * delta)
+                    .addScaledVector(right, planeStrafe * delta);
+
+                  var prevSurfaceUp = shipGroup.position.clone().sub(curPlanetPos).normalize();
+                  shipGroup.position.add(pFlightStep);
+                  shipVelocity.copy(pFlightStep).divideScalar(delta);
+
+                  relPos = shipGroup.position.clone().sub(curPlanetPos);
+                  curSurfaceUp = relPos.clone().normalize();
+
+                  // Spherical parallel transport: gently preserve heading level over the curved horizon
+                  var sphereCurvQuat = new THREE.Quaternion().setFromUnitVectors(prevSurfaceUp, curSurfaceUp);
+                  shipGroup.quaternion.premultiply(sphereCurvQuat).normalize();
+                  shipGroup.scale.set(1, 1, 1);
+
+                  // Smooth aerodynamic alignment towards planet center during entry transition
+                  // Completely eliminates any 'snap' when approaching from an oblique angle!
+                  if (STATE.planetEntryAlignTimer > 0) {
+                    STATE.planetEntryAlignTimer -= delta;
+                    var dirToCenter = curPlanetPos.clone().sub(shipGroup.position).normalize();
+                    if (dirToCenter.lengthSq() > 0.001) {
+                      var curUp = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion);
+                      var targetUp = curUp.clone().sub(dirToCenter.clone().multiplyScalar(curUp.dot(dirToCenter))).normalize();
+                      if (targetUp.lengthSq() < 0.01) {
+                        var altUp = Math.abs(dirToCenter.y) < 0.9 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(0, 0, 1);
+                        targetUp = altUp.clone().sub(dirToCenter.clone().multiplyScalar(altUp.dot(dirToCenter))).normalize();
+                      }
+                      var targetRight = new THREE.Vector3().crossVectors(dirToCenter, targetUp).normalize();
+                      targetUp.crossVectors(targetRight, dirToCenter).normalize();
+
+                      var alignMat = new THREE.Matrix4().makeBasis(targetRight, targetUp, dirToCenter.clone().negate());
+                      var targetQuat = new THREE.Quaternion().setFromRotationMatrix(alignMat).normalize();
+
+                      // Smooth slerp towards planet center: gradual, majestic nose dive over 1.8s
+                      var slerpRate = Math.min(1.0, 2.5 * delta);
+                      shipGroup.quaternion.slerp(targetQuat, slerpRate).normalize();
+                      shipGroup.scale.set(1, 1, 1);
+                    }
+                  }
+
+                  var distToPlanet = relPos.length();
+
+                  if (activePl.isRocky) {
+                    var planetNorm = curSurfaceUp;
+                    var terrainElev = getPlanetTerrainElevation(planetNorm, activePl.seed, activePl.radius, activePl.subType);
+                    var surfRadius = activePl.radius + terrainElev;
+                    var altitude = distToPlanet - surfRadius;
+                    STATE.planetAltitude = Math.max(0, altitude);
+
+                    // Anti-clipping terrain glide floor: allows skimming mountain peaks and canyon floors
+                    var minClearance = 1.0;
+                    if (altitude < minClearance) {
+                      relPos.setLength(surfRadius + minClearance);
+                      shipGroup.position.copy(curPlanetPos).add(relPos);
+                      var normVel = shipVelocity.dot(planetNorm);
+                      if (normVel < 0) {
+                        shipVelocity.sub(planetNorm.clone().multiplyScalar(normVel));
+                      }
+                      // Smoothly glide over terrain without pinning the nose into the ground
+                      var fwdDotNorm = forward.dot(planetNorm);
+                      if (fwdDotNorm < -0.05) {
+                        var levelFwd = forward.clone().sub(planetNorm.clone().multiplyScalar(fwdDotNorm)).normalize();
+                        if (levelFwd.lengthSq() > 0.01) {
+                          var surfRight = new THREE.Vector3().crossVectors(planetNorm, levelFwd).normalize();
+                          var surfUp = new THREE.Vector3().crossVectors(levelFwd, surfRight).normalize();
+                          var glideMat = new THREE.Matrix4().makeBasis(surfRight, surfUp, levelFwd.clone().negate());
+                          var glideQuat = new THREE.Quaternion().setFromRotationMatrix(glideMat).normalize();
+                          shipGroup.quaternion.slerp(glideQuat, Math.min(1.0, 5.0 * delta)).normalize();
+                          shipGroup.scale.set(1, 1, 1);
+                        }
+                      }
+                      altitude = minClearance;
+                      STATE.planetAltitude = altitude;
+                    }
+
+                    // Rocky worlds maintain pristine astronomical clarity: zero fog washing out craters or lighting!
+                    if (scene.fog) {
+                      scene.fog = null;
+                    }
+
+                    // Landing prompt when close to surface terrain
+                    if (altitude <= CONFIG.rockyLandAltitude) {
+                      if (landingPrompt) {
+                        landingPrompt.style.opacity = '1';
+                        landingPrompt.innerHTML = '<span class="land-key">[F]</span> TOUCHDOWN · ENGAGE LANDING GEAR';
+                      }
+                      if (telemStatus) telemStatus.textContent = 'SURFACE VICINITY · READY TO LAND';
+                      if (telemDot) telemDot.style.background = '#38bdf8';
+                    } else {
+                      if (landingPrompt) landingPrompt.style.opacity = '0';
+                      if (telemStatus) telemStatus.textContent = altitude < activePl.radius * 0.4 ? 'LOW ATMOSPHERE FLIGHT' : 'ORBITAL FLIGHT';
+                      if (telemDot) telemDot.style.background = '#38bdf8';
+                    }
+
+                    // Orbital escape threshold back to solar cruise
+                    if (distToPlanet > activePl.radius * CONFIG.planetEscapeDistRatio) {
+                      exitPlanetaryMode();
+                    }
+                  } else {
+                    // ====================================================
+                    // Gas Giant Volumetric Cloud & Atmospheric Simulation
+                    // ====================================================
+                    var surfDist = distToPlanet / activePl.radius;
+                    STATE.planetAltitude = Math.max(0, distToPlanet - activePl.radius);
+
+                    // 1. Dissolve Outer Surface Mesh: as ship penetrates into cloud deck (1.06 to 0.92 radius),
+                    // the solid-looking shell smoothly dissolves and is replaced by thick volumetric clouds!
+                    if (activePl.mesh && activePl.mesh.material) {
+                      if (surfDist > 1.06) {
+                        activePl.mesh.material.opacity = 1.0;
+                      } else if (surfDist < 0.92) {
+                        activePl.mesh.material.opacity = 0.0;
+                      } else {
+                        activePl.mesh.material.opacity = Math.max(0.0, Math.min(1.0, (surfDist - 0.92) / (1.06 - 0.92)));
+                      }
+                    }
+
+                    // 2. Atmospheric Fog & Background Sky Transition:
+                    // Immersion depth: 0 at upper atmosphere (1.15x radius), 1.0 in deep cloud strata
+                    var cloudDepth = Math.max(0, (1.15 - surfDist) / 0.65);
+                    var atmoColorHex = activePl.atmoColor || 0xd4a373;
+                    var atmoCol = new THREE.Color(atmoColorHex);
+                    var spaceCol = new THREE.Color(0x010103);
+
+                    if (cloudDepth > 0) {
+                      if (scene.background) {
+                        scene.background.copy(spaceCol).lerp(atmoCol, Math.min(1.0, cloudDepth * 1.35));
+                      }
+                      if (!scene.fog) {
+                        scene.fog = new THREE.FogExp2(atmoColorHex, 0.00002);
+                      }
+                      scene.fog.color.copy(atmoCol);
+                      // Exponential fog density turns the environment into palpable, thick flying-through-fog volume
+                      var targetFog = 0.00008 + Math.pow(Math.min(1.5, cloudDepth), 1.6) * 0.006;
+                      scene.fog.density = targetFog;
+                    } else {
+                      if (scene.background) scene.background.setHex(0x010103);
+                      if (scene.fog) scene.fog = null;
+                    }
+
+                    // 3. Local Volumetric Cloud Puff Particles streaming past the ship
+                    if (gasCloudPuffGroup && gasCloudPuffs.length > 0) {
+                      gasCloudPuffGroup.visible = cloudDepth > 0.05;
+                      gasCloudPuffGroup.position.copy(shipGroup.position);
+
+                      for (var cp = 0; cp < gasCloudPuffs.length; cp++) {
+                        var puff = gasCloudPuffs[cp];
+                        puff.relPos.x += puff.driftX * delta - pFlightStep.x;
+                        puff.relPos.y += puff.driftY * delta - pFlightStep.y;
+                        puff.relPos.z += puff.driftZ * delta - pFlightStep.z;
+
+                        var maxR = 85.0;
+                        if (puff.relPos.x > maxR) puff.relPos.x -= maxR * 2;
+                        if (puff.relPos.x < -maxR) puff.relPos.x += maxR * 2;
+                        if (puff.relPos.y > maxR * 0.7) puff.relPos.y -= maxR * 1.4;
+                        if (puff.relPos.y < -maxR * 0.7) puff.relPos.y += maxR * 1.4;
+                        if (puff.relPos.z > maxR) puff.relPos.z -= maxR * 2;
+                        if (puff.relPos.z < -maxR) puff.relPos.z += maxR * 2;
+
+                        puff.sprite.position.copy(puff.relPos);
+                        puff.sprite.material.color.setHex(atmoColorHex);
+                        puff.sprite.material.opacity = puff.baseOpacity * Math.min(1.0, cloudDepth * 1.6);
+                        puff.sprite.material.rotation += puff.rotSpeed * delta;
+                      }
+                    }
+
+                    // 4. Distant Atmospheric Storm Lightning in deep cloud decks
+                    gasLightningTimer -= delta;
+                    if (gasLightningTimer <= 0) {
+                      gasLightningTimer = 3.2 + Math.random() * 4.8;
+                      if (cloudDepth > 0.35 && gasLightningFlash) {
+                        var flashOffset = new THREE.Vector3(
+                          (Math.random() - 0.5) * 140,
+                          (Math.random() - 0.5) * 80,
+                          (Math.random() - 0.5) * 140
+                        );
+                        gasLightningFlash.position.copy(shipGroup.position).add(flashOffset);
+                        gasLightningFlash.color.setHex(atmoColorHex);
+                        gasLightningFlash.intensity = 5.0;
+                        setTimeout(function() {
+                          if (gasLightningFlash) gasLightningFlash.intensity = 0;
+                        }, 110);
+                      }
+                    }
+
+                    // 5. Atmospheric Density Turbulence & Telemetry
+                    if (cloudDepth > 0.85 && !STATE.isExploding) {
+                      if (gasWarningBanner) gasWarningBanner.style.opacity = '1';
+                      if (telemStatus) telemStatus.textContent = '⚠ CRITICAL DENSITY · SUPERCRITICAL FLUID ⚠';
+                      if (telemDot) telemDot.style.background = '#ef4444';
+                      var turb = (cloudDepth - 0.85) * 0.9;
+                      camera.position.x += (Math.random() - 0.5) * turb;
+                      camera.position.y += (Math.random() - 0.5) * turb;
+                    } else if (cloudDepth > 0.35) {
+                      if (gasWarningBanner) gasWarningBanner.style.opacity = '0';
+                      if (telemStatus) telemStatus.textContent = 'DENSE CLOUD DECK · VOLUMETRIC STORM STRATA';
+                      if (telemDot) telemDot.style.background = '#f59e0b';
+                      var turb2 = (cloudDepth - 0.35) * 0.25;
+                      camera.position.x += (Math.random() - 0.5) * turb2;
+                      camera.position.y += (Math.random() - 0.5) * turb2;
+                    } else {
+                      if (gasWarningBanner) gasWarningBanner.style.opacity = '0';
+                      if (telemStatus) telemStatus.textContent = surfDist < 1.0 ? 'UPPER CLOUD STRATA · METHANE HAZE' : 'HIGH ATMOSPHERE';
+                      if (telemDot) telemDot.style.background = '#38bdf8';
+                    }
+
+                    // 6. Cryogenic Coolant Atmospheric Scooping: Replenish coolant reserves inside gas giant
+                    if (cloudDepth > 0.05 && STATE.coolantLevel < 1.0) {
+                      var prevPct = Math.round(STATE.coolantLevel * 100);
+                      var scoopRate = 0.12; // ~8.3 seconds of flying through clouds replenishes from 0% to 100%
+                      STATE.coolantLevel = Math.min(1.0, STATE.coolantLevel + scoopRate * delta);
+                      updateCoolantUI(true);
+
+                      if (telemStatus && cloudDepth <= 0.85) {
+                        telemStatus.textContent = 'SCOOPING CRYOGENIC GASES · COOLANT TANK ' + Math.round(STATE.coolantLevel * 100) + '%';
+                        if (telemDot) telemDot.style.background = '#22d3ee';
+                      }
+
+                      if (prevPct < 100 && STATE.coolantLevel >= 1.0 && boundaryWarning) {
+                        boundaryWarning.textContent = '❄ COOLANT TANK FULLY REPLENISHED (100% CAPACITY) ❄';
+                        boundaryWarning.style.opacity = '0.9';
+                        setTimeout(function() {
+                          if (boundaryWarning && boundaryWarning.textContent.indexOf('REPLENISHED') !== -1) {
+                            boundaryWarning.style.opacity = '0';
+                          }
+                        }, 2500);
+                      }
+                    }
+
+                    // Implosion at crush depth
+                    if (surfDist < 0.14 && !STATE.isExploding) {
+                      triggerGasGiantExplosion();
+                    }
+
+                    // Orbital escape
+                    if (distToPlanet > activePl.radius * CONFIG.planetEscapeDistRatio) {
+                      exitPlanetaryMode();
+                    }
+                  }
+                }
+
+                // Telemetry HUD updates
+                if (telemAltitude) telemAltitude.textContent = Math.max(0, Math.round(STATE.planetAltitude * 10)) + ' m';
+                if (telemVelocity) telemVelocity.textContent = Math.round(shipVelocity.length() * 10) + ' m/s';
+
+                if (STATE.isLanded) {
+                  // When landed, smoothly maintain chase camera behind the landed craft
+                  var landedFwd = new THREE.Vector3(0, 0, -1).applyQuaternion(shipGroup.quaternion);
+                  var landedUp = new THREE.Vector3(0, 1, 0).applyQuaternion(shipGroup.quaternion);
+                  var landedChaseOffset = shipGroup.position.clone()
+                    .addScaledVector(landedFwd, -9.8)
+                    .addScaledVector(landedUp, 2.7);
+
+                  camera.position.lerp(landedChaseOffset, Math.min(1.0, 8.5 * delta));
+
+                  var landedLookTarget = shipGroup.position.clone().addScaledVector(landedFwd, 12.0);
+                  camLookTarget.lerp(landedLookTarget, Math.min(1.0, 10.0 * delta));
+                  camera.lookAt(camLookTarget);
+                  camera.up.lerp(landedUp, 6.0 * delta);
+                } else {
+                  // Keep camera and look target moving in lockstep with ship displacement during flight
+                  if (typeof pFlightStep !== 'undefined' && pFlightStep) {
+                    camera.position.add(pFlightStep);
+                    camLookTarget.add(pFlightStep);
+                  }
+
+                  // Cinematic chase camera follow with vehicle mass and look-ahead
+                  var planetChaseOffset = shipGroup.position.clone()
+                    .addScaledVector(forward, -9.8)
+                    .addScaledVector(up, 2.7);
+
+                  camera.position.lerp(planetChaseOffset, Math.min(1.0, 8.5 * delta));
+
+                  var planetLookTarget = shipGroup.position.clone().addScaledVector(forward, 12.0);
+                  camLookTarget.lerp(planetLookTarget, Math.min(1.0, 10.0 * delta));
+                  camera.lookAt(camLookTarget);
+                  camera.up.lerp(up, 6.0 * delta);
+                }
+              }
+            }
+
+            // ====================================================
+            // SUB-BRANCH 2: SOLAR CRUISE INTERPLANETARY NAVIGATION
+            // ====================================================
+            else if (STATE.mode === MODE_SOLAR) {
+              // Target forward cruise speed:
+              // W: Boost to 3x+ faster (175 m/s) with power-up acceleration curve
+              // S: Engine brake down to minimum cruise pace (28 m/s) - NEVER stops dead!
+              // Default (no keys): Default cruising pace (52 m/s)
+              var targetSolarForwardSpeed = CONFIG.solarCruiseSpeed;
+              if (keys.w) {
+                targetSolarForwardSpeed = CONFIG.solarBoostSpeed;
+              } else if (keys.s) {
+                targetSolarForwardSpeed = CONFIG.solarMinSpeed;
+              }
+
+              // Smooth acceleration / deceleration curve:
+              if (targetSolarForwardSpeed > STATE.solarSpeed) {
+                // Powering up boost: progressive spool-up acceleration curve (~2.5s to reach full boost)
+                var boostNorm = (STATE.solarSpeed - CONFIG.solarCruiseSpeed) / Math.max(1, (CONFIG.solarBoostSpeed - CONFIG.solarCruiseSpeed));
+                var accelRate = 0.50 + Math.pow(Math.max(0, boostNorm), 0.8) * 0.65;
+                STATE.solarSpeed += (targetSolarForwardSpeed - STATE.solarSpeed) * Math.min(1.0, accelRate * delta);
+              } else if (targetSolarForwardSpeed < STATE.solarSpeed) {
+                // Deceleration curve when releasing boost or braking with S (swift drop to half speed on S)
+                var decelRate = keys.s ? 4.8 : 1.35;
+                STATE.solarSpeed += (targetSolarForwardSpeed - STATE.solarSpeed) * Math.min(1.0, decelRate * delta);
+              }
+
+              // Ensure ship NEVER drops below minimum cruising speed
+              STATE.solarSpeed = Math.max(CONFIG.solarMinSpeed, STATE.solarSpeed);
+
+              // Lateral strafe speed
+              var solarStrafe = 0;
+              if (keys.d) solarStrafe += CONFIG.solarStrafeSpeed;
+              if (keys.a) solarStrafe -= CONFIG.solarStrafeSpeed;
+
+              // Compute flight step combining continuous forward cruise momentum and lateral strafing
+              var forwardStep = forward.clone().multiplyScalar(STATE.solarSpeed * delta);
+              var strafeStep = right.clone().multiplyScalar(solarStrafe * delta);
+              var flightStep = forwardStep.add(strafeStep);
+
+              shipGroup.position.add(flightStep);
+              shipVelocity.copy(flightStep).divideScalar(delta);
+
+              // Keep camera and look target moving in lockstep with the ship forward displacement
+              // This strictly prevents the camera from falling behind and making the ship look like a tiny dot!
+              camera.position.add(flightStep);
+              camLookTarget.add(flightStep);
+
+              // Subtle camera pull-away on boost (tight, vehicular surge)
+              var boostFraction = Math.max(0, (STATE.solarSpeed - CONFIG.solarCruiseSpeed) / (CONFIG.solarBoostSpeed - CONFIG.solarCruiseSpeed));
+              var targetPull = boostFraction * 1.6;
+              STATE.pullAway += (targetPull - STATE.pullAway) * Math.min(1.0, 5.0 * delta);
+
+              // Dynamic FOV widening at max speed: baseline 68 degrees at normal speed,
+              // widening up to 85 degrees at maximum boost, and smoothly contracting back to 68 on return to normal speed
+              var targetFov = 68.0 + boostFraction * 17.0;
+              camera.fov += (targetFov - camera.fov) * Math.min(1.0, 5.5 * delta);
+              camera.updateProjectionMatrix();
+
+              var baseChaseDist = 9.8;
+              var solarChaseOffset = shipGroup.position.clone()
+                .addScaledVector(forward, -(baseChaseDist + STATE.pullAway))
+                .addScaledVector(up, 2.7);
+
+              camera.position.lerp(solarChaseOffset, Math.min(1.0, 8.5 * delta));
+
+              var solarLookTarget = shipGroup.position.clone().addScaledVector(forward, 12.0);
+              camLookTarget.lerp(solarLookTarget, Math.min(1.0, 10.0 * delta));
+              camera.lookAt(camLookTarget);
+              camera.up.lerp(up, 6.0 * delta);
+
+              // Engine rumble during high-speed solar cruise boost
+              if (boostFraction > 0.05) {
+                var boostRumble = boostFraction * 0.12;
+                camera.position.x += (Math.random() - 0.5) * boostRumble;
+                camera.position.y += (Math.random() - 0.5) * boostRumble;
+                camera.position.z += (Math.random() - 0.5) * boostRumble * 0.8;
+              }
+
+              var distFromCenter = shipGroup.position.length();
+
+              if (distFromCenter > CONFIG.solarBoundaryDist * 0.82) {
+                boundaryWarning.style.opacity = '0.85';
+                boundaryWarning.textContent = 'APPROACHING SYSTEM BOUNDARY · ESCAPE VELOCITY INITIATING';
+              } else {
+                boundaryWarning.style.opacity = '0';
+              }
+
+              if (distFromCenter >= CONFIG.solarBoundaryDist) {
+                returnToHyperspace();
+              }
+
+              // Central Star Proximity Thermal Alert & Surface Incineration
+              var distToStar = distFromCenter;
+              var curStarRadius = (currentSolarSystemData && currentSolarSystemData.starRadius) ? currentSolarSystemData.starRadius : 14500.0;
+
+              if (distToStar < curStarRadius * 2.2 && !STATE.isExploding) {
+                if (gasWarningBanner) {
+                  gasWarningBanner.style.opacity = '1';
+                  gasWarningBanner.textContent = '⚠ CRITICAL THERMAL RADIATION · STELLAR SURFACE PROXIMITY · PULL AWAY! ⚠';
+                }
+                var thermalFrac = Math.max(0, (curStarRadius * 2.2 - distToStar) / (curStarRadius * 1.2));
+                var thermalShake = thermalFrac * 1.8;
+                camera.position.x += (Math.random() - 0.5) * thermalShake;
+                camera.position.y += (Math.random() - 0.5) * thermalShake;
+                camera.position.z += (Math.random() - 0.5) * thermalShake * 0.8;
+
+                // Touching the stellar surface incinerates and destroys the vessel!
+                if (distToStar <= curStarRadius * 1.01) {
+                  triggerStarExplosion();
+                }
+              } else if (gasWarningBanner && gasWarningBanner.style.opacity === '1' && STATE.mode === MODE_SOLAR) {
+                gasWarningBanner.style.opacity = '0';
+              }
+
+              // Proximity detection for Planetary Mode entry
+              var closestPlanetDist = Infinity;
+              var closestPlanetObj = null;
+              var tmpPWorld = new THREE.Vector3();
+
+              for (var p = 0; p < orbitingPlanets.length; p++) {
+                var pl = orbitingPlanets[p];
+                pl.mesh.getWorldPosition(tmpPWorld);
+                var d = shipGroup.position.distanceTo(tmpPWorld);
+                if (d < closestPlanetDist) {
+                  closestPlanetDist = d;
+                  closestPlanetObj = pl;
+                }
+              }
+
+              if (closestPlanetObj) {
+                if (closestPlanetDist <= closestPlanetObj.radius * CONFIG.planetApproachDistRatio) {
+                  // Seamless transition into atmospheric Planetary Mode!
+                  enterPlanetaryMode(closestPlanetObj);
+                } else if (closestPlanetDist <= closestPlanetObj.radius * 4.8) {
+                  if (starLockIndicator) {
+                    starLockIndicator.style.opacity = '0.85';
+                    starLockIndicator.textContent = 'APPROACHING ' + closestPlanetObj.name.toUpperCase() + ' · ' + Math.round(closestPlanetDist * 10) + ' KM';
+                  }
+                } else if (starLockIndicator && STATE.mode === MODE_SOLAR) {
+                  starLockIndicator.style.opacity = '0';
+                }
               }
             }
           }
